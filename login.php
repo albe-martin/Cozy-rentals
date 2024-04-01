@@ -41,7 +41,7 @@
         .login-form input[type=email], .login-form input[type=password] {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
+            margin: 10px -10px;
             border-radius: 5px;
             border: 1px solid #ddd;
         }
@@ -69,6 +69,12 @@
             color: tan;
             text-decoration: none;
         }
+
+        #title{
+            margin-bottom: 1.5rem;
+            font-size: 200%;
+            text-align:center;
+        }  
     </style>
 </head>
 <body>
@@ -81,6 +87,7 @@
     </div>
     <div class="login-form">
         <form>
+            <h1 id=title>SIGN IN</h1>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <label for="password">Password:</label>
