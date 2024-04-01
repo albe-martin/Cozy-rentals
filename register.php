@@ -2,6 +2,30 @@
 <html lang="en">
 
 <style>
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: tan;
+  color: white;
+}
+
 #title{
     margin-bottom: 1.5rem;
     font-size: 200%;
@@ -18,6 +42,15 @@
   cursor: pointer;
 }
 
+.error {
+   background: #F2DEDE;
+   color: #A94442;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
+}
+
 </style>
 
 <head>
@@ -27,9 +60,19 @@
     <title>Register</title>
 </head>
 <body>
+    <div class="topnav">
+        <a href="index.php">Index</a>
+        <a href="propertylist.php">Properties</a>
+        <a href="contact.php">Contact</a>
+        <a href="login.php">Log In</a>
+        <a class="active" href="register.php">Register</a>
+    </div>
     <section class="form-container">
-        <form method="post" align=center >
+        <form action="register_check.php" method="post" align=center >
             <h1 id=title>REGISTER NOW</h1>
+            <?php if (isset($_GET['error'])) { ?>
+  		        <p class="error"><?php echo $_GET['error']; ?></p>
+            <?php } ?>
             <input type="email" name="email" placeholder="enter your email" required> <br> <br>
             <input type="phone" name="phone" placeholder="enter your phone number" required> <br> <br>
             <input type="fname" name="fname" placeholder="enter your first name" required> <br>

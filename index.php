@@ -32,31 +32,39 @@ http://localhost:8012/Rental-Project/index.php
   color: white;
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 #myheader{
     background-color:white;
     font-size:500%;
     color:black;
-    padding:40;
+    padding:30;
     text-align:center;
 }
 </style>
-
-<body>
-<div class="topnav">
-  <a class="active" href="index.php">Index</a>
-  <a href="propertylist.php">Properties</a>
-  <a href="contact.php">Contact</a>
-</div>
-</body>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Cozy Rentals</title>
-    <h1 id = "myheader"> Cozy Rentals </h1>
 </head>
 <body bgcolor="white">
-    
+    <div class="topnav">
+    <a class="active" href="index.php">Index</a>
+    <a href="propertylist.php">Properties</a>
+    <a href="contact.php">Contact</a>
+    <a href="login.php">Log In</a>
+    <a href="register.php">Register</a>
+    </div>
+    <h1 id = "myheader"> Cozy Rentals </h1>
+    <p class="center">There should be some discription here</p>
+    <img src="img/index.webp" alt="Cozy interior design by DECORILLA" class="center">
 </body>
 </html>
