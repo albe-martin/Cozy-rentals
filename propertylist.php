@@ -31,13 +31,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Properties</title>
 </head>
 <body>
     <div class="topnav">
         <a href="index.php">Index</a>
-        <a href="propertylist.php">Properties</a>
-        <a class="active" href="contact.php">Contact</a>
+        <a class="active" href="propertylist.php">Properties</a>
+        <a href="contact.php">Contact</a>
         <a href="login.php">Log In</a>
         <a href="register.php">Register</a>
     </div>
