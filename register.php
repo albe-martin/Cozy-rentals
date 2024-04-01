@@ -90,7 +90,8 @@
             <input type="fname" name="fname" placeholder="enter your first name" required> <br>
             <input type="lname" name="lanme" placeholder="enter your last name" required> <br> <br>
             <input type="password" name="password" placeholder="enter your password" required> <br>
-            <button type="submit" class="btn">register now</button> <br>
+            <!-- <button type="submit" class="btn">register now</button> <br> -->
+            <input type="submit" name="submit-btn" value="register now" class="btn"> <br>
             <p>already have an account ? <a href="login.php">login now</a></p>
         </form>
     </section>
