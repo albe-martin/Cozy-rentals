@@ -64,7 +64,11 @@ http://localhost:8012/Rental-Project/index.php
     <a href="register.php">Register</a>
     </div>
     <h1 id = "myheader"> Cozy Rentals </h1>
-    <p class="center">There should be some discription here</p>
+    <h2 class="center">Welcome to Cozy Rentals: Your Gateway to a New Home! </h2>
+    <p class="center"> At Cozy Rentals, we make finding your ideal home in Calgary effortless. 
+    <br>Whether you’re drawn to the convenience of a stylish apartment or the charm of a cozy house, we cater to every preference. Embrace the opportunity to customize your home with a selection of unique interior styles, ensuring it perfectly reflects your personal taste. Our properties are chosen with care to provide both comfort and convenience, facilitating a smooth and welcoming transition to your new life. 
+    <br>Choose Cozy Rentals for a home that’s more than a place to stay—it’s a warm welcome to your new life.</p>
+    
     <img src="img/index.webp" alt="Cozy interior design by DECORILLA" class="center">
 </body>
 </html>
