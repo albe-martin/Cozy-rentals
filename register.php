@@ -44,7 +44,16 @@
 
 .error {
    background: #F2DEDE;
-   color: #A94442;
+   color: #a52e1b;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
+}
+
+.success {
+   background: #D4EDDA;
+   color: #40754C;
    padding: 10px;
    width: 95%;
    border-radius: 5px;
@@ -68,17 +77,20 @@
         <a class="active" href="register.php">Register</a>
     </div>
     <section class="form-container">
-        <form action="register_check.php" method="post" align=center >
+        <form action="register-check.php" method="post" align=center >
             <h1 id=title>REGISTER NOW</h1>
             <?php if (isset($_GET['error'])) { ?>
   		        <p class="error"><?php echo $_GET['error']; ?></p>
+            <?php } ?>
+            <?php if (isset($_GET['success'])) { ?>
+                <p class="success"><?php echo $_GET['success']; ?></p>
             <?php } ?>
             <input type="email" name="email" placeholder="enter your email" required> <br> <br>
             <input type="phone" name="phone" placeholder="enter your phone number" required> <br> <br>
             <input type="fname" name="fname" placeholder="enter your first name" required> <br>
             <input type="lname" name="lanme" placeholder="enter your last name" required> <br> <br>
             <input type="password" name="password" placeholder="enter your password" required> <br>
-            <input type="submit" name="submit-btn" value="register now" class="btn"> <br>
+            <button type="submit" class="btn">register now</button> <br>
             <p>already have an account ? <a href="login.php">login now</a></p>
         </form>
     </section>
