@@ -75,6 +75,24 @@
             font-size: 200%;
             text-align:center;
         }  
+
+        .error {
+            background: #F2DEDE;
+            color: #a52e1b;
+            padding: 10px;
+            width: 95%;
+            border-radius: 5px;
+            margin: 20px auto;
+            }
+
+        .success {
+            background: #D4EDDA;
+            color: #40754C;
+            padding: 10px;
+            width: 95%;
+            border-radius: 5px;
+            margin: 20px auto;
+        }
     </style>
 </head>
 <body>
@@ -86,8 +104,14 @@
         <a href="register.php">Register</a>
     </div>
     <div class="login-form">
-        <form>
+        <form action="login-check.php" method="post">
             <h1 id=title>SIGN IN</h1>
+            <?php if (isset($_GET['error'])) { ?>
+  		        <p class="error"><?php echo $_GET['error']; ?></p>
+            <?php } ?>
+            <?php if (isset($_GET['success'])) { ?>
+                <p class="success"><?php echo $_GET['success']; ?></p>
+            <?php } ?>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <label for="password">Password:</label>
