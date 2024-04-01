@@ -68,18 +68,10 @@
     border-radius: 5px;
 }
 
-.register-form input[type=email], .register-form input[type=phone], .register-form input[type=password] {
+.register-form input[type=email], .register-form input[type=phone], .register-form input[type=password], .register-form input[type=fname], .register-form input[type=lname] {
     width: 100%;
     padding: 10px;
     margin: 10px -10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.register-form input[type=fname], .register-form input[type=lname] {
-    width: 42%;
-    padding: 10px;
-    margin: 10px 0px;
     border-radius: 5px;
     border: 1px solid #ddd;
 }
@@ -128,8 +120,9 @@
             <input type="email" name="email" placeholder="enter your email" required>
             <label for="phone">Phone Number:</label>
             <input type="phone" name="phone" placeholder="enter your phone number" required> 
-            <label for="name">Name:</label> <br>
+            <label for="fname">First Name:</label>
             <input type="fname" name="fname" placeholder="first name" required>
+            <label for="lname">Last Name:</label>
             <input type="lname" name="lanme" placeholder="last name" required> 
             <label for="password">Password:</label>
             <input type="password" name="password" placeholder="enter your password" required>
