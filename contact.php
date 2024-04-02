@@ -30,6 +30,44 @@
     font-size: 200%;
     text-align:center;
 }
+
+.column {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+  padding: 20px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+* {
+  box-sizing: border-box;
+}
 </style>
 
 <head>
@@ -47,5 +85,28 @@
         <a href="register.php">Register</a>
     </div>
     <h1 id = "title"> Contact Us </h1>
+    <div class="contain">
+      <div style="text-align:center">
+        <p>Unlock the door to convenience with us, Leave us a message:</p>
+      </div>
+      <div class = "row">
+        <div class= "column">
+          <form action="/action_page.php">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+            <label for="email">Email ID</label>
+            <input type="text" id="email" name="emailid" placeholder="Your E-mail ID..">
+            <label for="subject">Subject</label>
+            <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+            <input type="submit" value="Submit">
+          </form>
+        </div> 
+        <div class="column">
+          <img src="img/contactus.webp" style="width:100%">
+        </div>
+      </div>
+    </div>
 </body>
 </html>>
