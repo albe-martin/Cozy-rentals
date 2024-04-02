@@ -91,17 +91,11 @@ input[type=text], select, textarea {
       </div>
       <div class = "row">
         <div class= "column">
-          <form action="/action_page.php">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="Your name..">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-            <label for="email">Email ID</label>
-            <input type="text" id="email" name="emailid" placeholder="Your E-mail ID..">
-            <label for="subject">Subject</label>
-            <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
-            <input type="submit" value="Submit">
-          </form>
+          <ul>
+            <li>Email: contact@example.com</li>
+            <li>Phone: +123456789</li>
+            <li>Address: 1234 Street, City, Country</li>
+          </ul>
         </div> 
         <div class="column">
           <img src="img/contactus.webp" style="width:100%">
