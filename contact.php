@@ -44,26 +44,6 @@
   clear: both;
 }
 
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-
-input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  cursor: pointer;
-}
-
-input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
 
 * {
   box-sizing: border-box;
@@ -103,4 +83,4 @@ input[type=text], select, textarea {
       </div>
     </div>
 </body>
-</html>>
+</html>

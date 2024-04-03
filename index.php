@@ -32,6 +32,15 @@ http://localhost:8012/Rental-Project/index.php
   color: white;
 }
 
+.topnav p{
+  float: right;
+  color: #f2f2f2;
+  font-size: 14px;
+  text-decoration: underline;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .center {
   display: block;
   margin-left: auto;
@@ -55,14 +64,41 @@ http://localhost:8012/Rental-Project/index.php
     <link rel="stylesheet" href="style.css">
     <title>Cozy Rentals</title>
 </head>
-<body bgcolor="white">
-    <div class="topnav">
-    <a class="active" href="index.php">Index</a>
-    <a href="propertylist.php">Properties</a>
-    <a href="contact.php">Contact</a>
-    <a href="login.php">Log In</a>
-    <a href="register.php">Register</a>
-    </div>
+<body background-color="white">
+    <?php
+      session_start();  // call this for every page that you need to use $_SESSION
+      if (!isset($_SESSION['login'])) { // if not login
+    ?>
+      <div class="topnav">
+      <a class="active" href="index.php">Index</a>
+      <a href="propertylist.php">Properties</a>
+      <a href="contact.php">Contact</a>
+      <a href="login.php">Log In</a>
+      <a href="register.php">Register</a>
+      </div>
+    <?php
+      } else if ($_SESSION['type'] === 'client') { // when login as client
+    ?>
+      <div class="topnav">
+      <a class="active" href="index.php">Index</a>
+      <a href="propertylist.php">Properties</a>
+      <a href="watchlist.php">Watchlist</a>
+      <a href="contact.php">Contact</a>
+      <a href="logout.php">Log Out</a>
+      <p><?php echo "Hello, " . $_SESSION['fname'] ." ". $_SESSION['lname']; ?></p>
+      </div>
+    <?php
+      } else if ($_SESSION['type'] === 'admin') { // when login as admin
+    ?>
+      <div class="topnav">
+      <a class="active" href="index.php">Index</a>
+      <a href="admin/adminpropertylist.php">Manage Properties</a>
+      <a href="admin/postnewproperty.php">Post Property</a>
+      <a href="logout.php">Log Out</a>
+      </div>
+    <?php 
+      }
+    ?>
     <h1 id = "myheader"> Cozy Rentals </h1>
     <h2 class="center">Welcome to Cozy Rentals: Your Gateway to a New Home! </h2>
     <p class="center"> At Cozy Rentals, we make finding your ideal home in Calgary effortless. 

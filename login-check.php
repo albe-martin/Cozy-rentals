@@ -28,14 +28,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {  // if these input ar
             // check if login as admin
             $sql_admin = "SELECT * FROM admins WHERE Admin_email='$email'";
             $result = mysqli_query($conn, $sql_admin);
-            if (mysql_num_rows($result) === 1) {
+            if (mysqli_num_rows($result) === 1) {
                 // login as a admin
                 $_SESSION['type'] = "admin";
             } else {
                 // check if login as client
                 $sql_client = "SELECT * FROM client WHERE User_email='$email'";
                 $result = mysqli_query($conn, $sql_client);
-                if (mysql_num_rows($result) === 1) {
+                if (mysqli_num_rows($result) === 1) {
                     // login as a client
                     $_SESSION['type'] = "client";
                 } else {
@@ -46,10 +46,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {  // if these input ar
             }
             $_SESSION['fname'] = $row['FName'];
             $_SESSION['lname'] = $row['LName'];
-            header("Location: login.php");
+            $_SESSION['login'] = "true";
+            header("Location: index.php");  // redirect to index
             exit();
         }else{
             header("Location: login.php?error=Incorect email or password");
+            session_destroy();
             exit();
         }
     }else{
