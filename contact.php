@@ -1,3 +1,6 @@
+<?php
+  // note: only login as client and not login user get to see this page
+?>
 <!DOCTYPE html>
 <html lang="en">
 <style>
@@ -23,6 +26,15 @@
 .topnav a.active {
   background-color: tan;
   color: white;
+}
+
+.topnav p{
+  float: right;
+  color: #f2f2f2;
+  font-size: 14px;
+  text-decoration: underline;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #title{
@@ -57,13 +69,35 @@
     <title>Contact Us</title>
 </head>
 <body>
-    <div class="topnav">
-        <a href="index.php">Index</a>
-        <a href="propertylist.php">Properties</a>
-        <a class="active" href="contact.php">Contact</a>
-        <a href="login.php">Log In</a>
-        <a href="register.php">Register</a>
-    </div>
+    <?php // coder for top navigation bar
+      session_start();  // call this for every page that you need to use $_SESSION
+      if (!isset($_SESSION['login'])) { // if not login
+    ?>
+      <div class="topnav">
+      <a href="index.php">Index</a>
+      <a href="propertylist.php">Properties</a>
+      <a class="active" href="contact.php">Contact</a>
+      <a href="login.php">Log In</a>
+      <a href="register.php">Register</a>
+      </div>
+    <?php
+      } else if ($_SESSION['type'] === 'client') { // when login as client
+    ?>
+      <div class="topnav">
+      <a href="index.php">Index</a>
+      <a href="propertylist.php">Properties</a>
+      <a href="watchlist.php">Watchlist</a>
+      <a href="paymentlist.php">Payments</a>
+      <a class="active" href="contact.php">Contact</a>
+      <a href="logout.php">Log Out</a>
+      <p><?php echo "Hello, " . $_SESSION['fname'] ." ". $_SESSION['lname']; ?></p>
+      </div>
+    <?php
+      } else if ($_SESSION['type'] === 'admin') { // when login as admin
+        header("Location: index.php");  // redirect back to index
+      }
+    ?>
+
     <h1 id = "title"> Contact Us </h1>
     <div class="contain">
       <div style="text-align:center">

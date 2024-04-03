@@ -1,9 +1,11 @@
 <?php
-  // note: only login as client and not login user get to see this page
+    session_start();
+    // note: only login as client gets to see this page
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <style>
 .topnav {
   overflow: hidden;
@@ -37,35 +39,25 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-
 </style>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Properties</title>
+    <title>My Payments</title>
 </head>
 <body>
-    <?php // coder for top navigation bar
-      session_start();  // call this for every page that you need to use $_SESSION
+    <?php // code for top navigation bar
       if (!isset($_SESSION['login'])) { // if not login
-    ?>
-      <div class="topnav">
-      <a href="index.php">Index</a>
-      <a class="active" href="propertylist.php">Properties</a>
-      <a href="contact.php">Contact</a>
-      <a href="login.php">Log In</a>
-      <a href="register.php">Register</a>
-      </div>
-    <?php
+        header("Location: index.php");  // redirect back to index
       } else if ($_SESSION['type'] === 'client') { // when login as client
     ?>
       <div class="topnav">
       <a href="index.php">Index</a>
-      <a class="active" href="propertylist.php">Properties</a>
+      <a href="propertylist.php">Properties</a>
       <a href="watchlist.php">Watchlist</a>
-      <a href="paymentlist.php">Payments</a>
+      <a class="active" href="paymentlist.php">Payments</a>
       <a href="contact.php">Contact</a>
       <a href="logout.php">Log Out</a>
       <p><?php echo "Hello, " . $_SESSION['fname'] ." ". $_SESSION['lname']; ?></p>
@@ -75,5 +67,6 @@
         header("Location: index.php");  // redirect back to index
       }
     ?>
+
 </body>
 </html>

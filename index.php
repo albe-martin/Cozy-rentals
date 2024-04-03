@@ -1,8 +1,5 @@
 <?php
-// php code here 
-/* test and run: 
-http://localhost:8012/Rental-Project/index.php
-*/
+// note: everyone sees this page
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +62,7 @@ http://localhost:8012/Rental-Project/index.php
     <title>Cozy Rentals</title>
 </head>
 <body background-color="white">
-    <?php
+    <?php // code for top navigation bar
       session_start();  // call this for every page that you need to use $_SESSION
       if (!isset($_SESSION['login'])) { // if not login
     ?>
@@ -83,6 +80,7 @@ http://localhost:8012/Rental-Project/index.php
       <a class="active" href="index.php">Index</a>
       <a href="propertylist.php">Properties</a>
       <a href="watchlist.php">Watchlist</a>
+      <a href="paymentlist.php">Payments</a>
       <a href="contact.php">Contact</a>
       <a href="logout.php">Log Out</a>
       <p><?php echo "Hello, " . $_SESSION['fname'] ." ". $_SESSION['lname']; ?></p>
@@ -92,13 +90,15 @@ http://localhost:8012/Rental-Project/index.php
     ?>
       <div class="topnav">
       <a class="active" href="index.php">Index</a>
-      <a href="admin/adminpropertylist.php">Manage Properties</a>
-      <a href="admin/postnewproperty.php">Post Property</a>
+      <a href="adminpropertylist.php">Manage Properties</a>
+      <a href="postnewproperty.php">Post Property</a>
       <a href="logout.php">Log Out</a>
+      <p><?php echo "Admin: " . $_SESSION['fname'] ." ". $_SESSION['lname']; ?></p>
       </div>
     <?php 
       }
     ?>
+
     <h1 id = "myheader"> Cozy Rentals </h1>
     <h2 class="center">Welcome to Cozy Rentals: Your Gateway to a New Home! </h2>
     <p class="center"> At Cozy Rentals, we make finding your ideal home in Calgary effortless. 
