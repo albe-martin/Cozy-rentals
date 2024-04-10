@@ -102,6 +102,7 @@
   cursor: pointer;
   width: 100%;
   font-size: 18px;
+  width: 32.5%;
 }
 
 .card button:hover {
@@ -126,12 +127,29 @@ function displayProperty($pid) {
     <?php echo "<h2>$title</h2>"; ?>
     <?php echo "<p>$address</p>"; ?>
     <?php echo "<img src = " . $img_source . " alt= <qProperty Image/q>"; ?> 
-    <?php echo "<h1>"."$".$row['Cost_Per_Month']."</h1>"; ?> 
-    <p><button>Add to Watchlist</button></p>
+    <?php echo "<h1>"."$".$row['Cost_Per_Month']." / month"."</h1>"; ?> 
+    <?php echo "<p>"."Size: ".$row['Size']." ft²"."</p>"; ?> 
+    <?php echo "<p>"."Number of Bedrooms: ".$row['num_bedrooms']."</p>"; ?> 
+    <?php echo "<p>"."Number of Bathrooms: ".$row['num_bathrooms']."</p>"; ?> 
+    <?php echo "<p>"."Pet: ".$row['Pet']."</p>"; ?> 
+    <?php echo "<p>"."Smoking: ".$row['Smoke']."</p>"; ?> 
+    <?php echo "<p>"."Utility Fees Included: ".$row['Utility']."</p>"; ?> 
+    <?php echo "<p>"."Furnitures: ".$row['Furnish']."</p>"; ?> 
+
+    <p style="text-align:center"><button>Add to Watchlist</button>
+    <button>Book a Showing</button>
+    <button>Rent Now</button></p>
   </div>
 <?php
   } else {
     // error: property not exist
+    $err_msg = "Property ID ".$pid." does not exist.";
+?>
+    <div class="card">
+    <?php echo "<h2>Error</h2>"; ?>
+    <?php echo "<p>$err_msg</p>"; ?>
+    </div>
+<?php
   }
 }
 ?>
