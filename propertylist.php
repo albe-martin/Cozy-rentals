@@ -124,17 +124,32 @@ function displayProperty($pid) {
     $address = "Address: ".$row['No.']." ".$row['Street']." ".$row['District']." ".$row['Province'];
 ?>
   <div class="card">
-    <?php echo "<h2>$title</h2>"; ?>
-    <?php echo "<p>$address</p>"; ?>
-    <?php echo "<img src = " . $img_source . " alt= <qProperty Image/q>"; ?> 
-    <?php echo "<h1>"."$".$row['Cost_Per_Month']." / month"."</h1>"; ?> 
-    <?php echo "<p>"."Size: ".$row['Size']." ft²"."</p>"; ?> 
-    <?php echo "<p>"."Number of Bedrooms: ".$row['num_bedrooms']."</p>"; ?> 
-    <?php echo "<p>"."Number of Bathrooms: ".$row['num_bathrooms']."</p>"; ?> 
-    <?php echo "<p>"."Pet: ".$row['Pet']."</p>"; ?> 
-    <?php echo "<p>"."Smoking: ".$row['Smoke']."</p>"; ?> 
-    <?php echo "<p>"."Utility Fees Included: ".$row['Utility']."</p>"; ?> 
-    <?php echo "<p>"."Furnitures: ".$row['Furnish']."</p>"; ?> 
+    <?php echo "<h2>$title</h2>";
+    echo "<p>$address</p>";
+    echo "<img src = " . $img_source . " alt= <qProperty Image/q>";
+    echo "<h1>"."$".$row['Cost_Per_Month']." / month"."</h1>";
+    echo "<p>"."Size: ".$row['Size']." ft²"."</p>";
+    echo "<p>"."Number of Bedrooms: ".$row['num_bedrooms']."</p>";
+    echo "<p>"."Number of Bathrooms: ".$row['num_bathrooms']."</p>";
+    echo "<p>"."Pet: ".$row['Pet']."</p>";
+    echo "<p>"."Smoking: ".$row['Smoke']."</p>";
+    echo "<p>"."Utility Fees Included: ".$row['Utility']."</p>";
+    echo "<p>"."Furnitures: ".$row['Furnish']."</p>"; 
+
+    $sql2 = "SELECT * FROM `interior design` WHERE Property_id= $pid ";
+    $result2 = mysqli_query($conn, $sql2);
+    if (mysqli_num_rows($result2) > 0) {
+      echo "<p>"."Interior Designs: "."</p>"; 
+      ?><ul><?php
+      while($row2 = $result2->fetch_assoc()) {
+        echo "<li>"."\t".$row2['interior_design']."</li>"; 
+      }
+      ?></ul><?php
+    } else if (mysqli_num_rows($result2) === 0) {
+      echo "<p>"."Interior Designs: "."None"."</p>"; 
+    }
+    ?> 
+
 
     <p style="text-align:center"><button>Add to Watchlist</button>
     <button>Book a Showing</button>
@@ -146,8 +161,8 @@ function displayProperty($pid) {
     $err_msg = "Property ID ".$pid." does not exist.";
 ?>
     <div class="card">
-    <?php echo "<h2>Error</h2>"; ?>
-    <?php echo "<p>$err_msg</p>"; ?>
+      <?php echo "<h2>Error</h2>"; ?>
+      <?php echo "<p>$err_msg</p>"; ?>
     </div>
 <?php
   }
@@ -190,7 +205,7 @@ function displayProperty($pid) {
       }
     ?>
 
-    <!-- Side navigation -->
+    <!-- Side navigation ref: https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_radio-->
     <div class="sidenav">
       <p>Filter</p>
     </div>
@@ -198,10 +213,23 @@ function displayProperty($pid) {
     <!-- Page content -->
     <div class="main">
       <?php
-        $pid = 101;
-        displayProperty($pid);
-        $pid = 102;
-        displayProperty($pid);
+        // display properties
+        include "db_connect.php";
+        $sql = "SELECT * FROM property WHERE rental_status= 'Yes' ";  // properties that are still open for rent
+	      $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+          // display every properties
+          while($row = $result->fetch_assoc()) {
+            displayProperty($row['Property_id']);
+          }
+        } else if (mysqlii_num_rows($result) === 0){
+          // no properties to displaay
+          ?>
+          <div class="card">
+            <h2>"No Result Found. :<"</h2>
+          </div>
+          <?php
+        }
       ?>
     </div>
 </body>
