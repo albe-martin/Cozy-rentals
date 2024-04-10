@@ -122,15 +122,15 @@
                 <p class="success"><?php echo $_GET['success']; ?></p>
             <?php } ?>
             <label for="email">Email:</label>
-            <input type="email" name="email" placeholder="enter your email" required>
+            <input type="email" name="email" required>
             <label for="phone">Phone Number:</label>
-            <input type="phone" name="phone" placeholder="enter your phone number" required> 
+            <input type="phone" name="phone" required> 
             <label for="fname">First Name:</label>
-            <input type="fname" name="fname" placeholder="first name" required>
+            <input type="fname" name="fname" required>
             <label for="lname">Last Name:</label>
-            <input type="lname" name="lanme" placeholder="last name" required> 
+            <input type="lname" name="lanme" required> 
             <label for="password">Password:</label>
-            <input type="password" name="password" placeholder="enter your password" required>
+            <input type="password" name="password" required>
             <input type="submit" name="submit-btn" value="Register Now" class="btn">
             <p class="login">Already have an account ? <a href="login.php" color=tan>login now.</a></p>
         </form>
