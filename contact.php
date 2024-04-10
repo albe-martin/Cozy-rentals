@@ -6,8 +6,14 @@
 <style>
 .topnav {
   overflow: hidden;
+  float:top;
+  top:0;
+  left:0;
+  width: 100%;
   background-color: #333;
+  position:fixed;
 }
+
 
 .topnav a {
   float: left;
@@ -38,6 +44,7 @@
 }
 
 #title{
+    margin-top: 100px;
     margin-bottom: 1.5rem;
     font-size: 200%;
     text-align:center;

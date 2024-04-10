@@ -8,7 +8,12 @@
     <style>
         .topnav {
             overflow: hidden;
+            float:top;
+            top:0;
+            left:0;
+            width: 100%;
             background-color: #333;
+            position:fixed;
         }
 
         .topnav a {
@@ -31,7 +36,7 @@
         }
 
         .login-form {
-            margin: 20px auto;
+            margin: 120px auto;
             width: 300px;
             padding: 20px;
             border: 1px solid #ddd;

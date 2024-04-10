@@ -7,7 +7,12 @@
 <style>
 .topnav {
   overflow: hidden;
+  float:top;
+  top:0;
+  left:0;
+  width: 100%;
   background-color: #333;
+  position:fixed;
 }
 
 .topnav a {
@@ -46,6 +51,7 @@
 }
 
 #myheader{
+    margin-top:100px;
     background-color:white;
     font-size:500%;
     color:black;
