@@ -68,6 +68,7 @@
 /* main content */
 .main {
   height:100%;
+  margin-top: 60px;
   margin-left: 30%; /* Same as the width of the sidebar */
   padding: 0px 10px;
 }
@@ -76,7 +77,7 @@
 .card {
   border: 3px solid transparent;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: auto;
+  margin-bottom: 20px;
   text-align: left;
   font-family: arial;
   padding: 2px 16px;
@@ -178,7 +179,6 @@ function displayProperty($pid) {
 
     <!-- Page content -->
     <div class="main">
-      <p>TEST, here should have list of properties</p>
       <?php
         $pid = 101;
         displayProperty($pid);
