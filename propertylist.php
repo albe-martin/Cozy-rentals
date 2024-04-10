@@ -1,5 +1,6 @@
 <?php
   // note: only login as client and not login user get to see this page
+  session_start();  // call this for every page that you need to use $_SESSION
 ?>
 
 <!DOCTYPE html>
@@ -7,8 +8,12 @@
 <style>
 .topnav {
   overflow: hidden;
+  float:top;
+  top:0;
+  left:0;
   width: 100%;
   background-color: #333;
+  position:fixed;
 }
 
 .topnav a {
@@ -39,15 +44,14 @@
   padding-right: 10px;
 }
 
-/* good reference */
+/* reference if want to use java script to filter*/
 /* https://www.w3schools.com/howto/howto_js_filter_elements.asp */
 .sidenav {
   height: 100%;
-  width: 30%; /* Set the width of the sidebar */
+  top:48px;
+  width: 30%;
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 10; /* Stay at the top */
-  left: 1;
+  left: 0;
   background-color: rgb(219, 219, 219);
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 0px;
@@ -61,19 +65,75 @@
   display: block;
 }
 
-/* Style page content */
+/* main content */
 .main {
+  height:100%;
   margin-left: 30%; /* Same as the width of the sidebar */
   padding: 0px 10px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+/* Property Card */
+.card {
+  border: 3px solid transparent;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: auto;
+  text-align: left;
+  font-family: arial;
+  padding: 2px 16px;
+}
+
+.card:hover {
+  border: 3px solid tan;
+}
+
+.card img{
+  float:center;
+  width:100%;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: #f2f2f2;
+  background-color: #333;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  background-color: #ddd;
+  color: black;
 }
 
 </style>
+
+<?php
+function displayProperty($pid) {
+  include "db_connect.php";
+  $sql = "SELECT * FROM property WHERE Property_id= $pid ";
+	$result = mysqli_query($conn, $sql);
+  if (mysqli_num_rows($result) === 1) {
+    $row = mysqli_fetch_assoc($result);
+    $title = $row['Property_type']." ID ".$pid;
+    $img_source = "img/".$pid."/temp.png";
+    $address = "Address: ".$row['No.']." ".$row['Street']." ".$row['District']." ".$row['Province'];
+?>
+  <div class="card">
+    <?php echo "<h2>$title</h2>"; ?>
+    <?php echo "<p>$address</p>"; ?>
+    <?php echo "<img src = " . $img_source . " alt= <qProperty Image/q>"; ?> 
+    <?php echo "<h1>"."$".$row['Cost_Per_Month']."</h1>"; ?> 
+    <p><button>Add to Watchlist</button></p>
+  </div>
+<?php
+  } else {
+    // error: property not exist
+  }
+}
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -84,7 +144,6 @@
 <body>
     <!-- Top navigation -->
     <?php
-      session_start();  // call this for every page that you need to use $_SESSION
       if (!isset($_SESSION['login'])) { // if not login
     ?>
       <div class="topnav">
@@ -120,6 +179,12 @@
     <!-- Page content -->
     <div class="main">
       <p>TEST, here should have list of properties</p>
+      <?php
+        $pid = 101;
+        displayProperty($pid);
+        $pid = 102;
+        displayProperty($pid);
+      ?>
     </div>
 </body>
 </html>
