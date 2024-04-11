@@ -105,6 +105,7 @@
   border-radius: 5px;
   margin-top: 3px;
   border: 1px solid #ddd;
+  text-transform: uppercase;
 }
 
 /* main content */
@@ -265,13 +266,13 @@ function displayProperty($pid) {
       <form action="propertylist.php" method="post">
         <input name="pidInput" placeholder="Search by Property ID..">
         <button type="submit">Search</button>
-        <!--Filters-->
+        <!--Filters (values has to match with database)-->
         <label for="p_type">Property Type:</label>
         <select name="p_type">
           <option value="-">-</option>
-          <option value="APARTMENT">APARTMENT</option>
-          <option value="CONDO">CONDO</option>
-          <option value="HOUSE">HOUSE</option>
+          <option value="Apartment">Apartment</option>
+          <option value="Condo">Condo</option>
+          <option value="House">House</option>
         </select>
         <label for="district">District:</label>
         <select name="district">
@@ -285,16 +286,29 @@ function displayProperty($pid) {
         <label for="pet">Pet:</label>
         <select name="pet">
           <option value="-">-</option>
-          <option value="YES">YES</option>
-          <option value="NO">NO</option>
-          <option value="LIMITED">LIMITED</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Limitid">Limitid</option>
         </select>
         <label for="smoking">Smoking:</label>
         <select name="smoking">
           <option value="-">-</option>
-          <option value="YES">YES</option>
-          <option value="NO">NO</option>
-          <option value="OUT">OUTDOOR ONLY</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Out">Outdoor only</option> <!--NEED to database decision -->
+        </select>
+        <label for="utilities">Utility Fees:</label>
+        <select name="utilities">
+          <option value="-">-</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Partial">Partial</option> <!--NEED to database decision -->
+        </select>
+        <label for="furnish">Furnishing:</label>
+        <select name="furnish">
+          <option value="-">-</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
         </select>
         <button type="submit">Apply Filter</button>
       </form>
@@ -319,46 +333,56 @@ function displayProperty($pid) {
           // display every properties
           while($row = $result->fetch_assoc()) {
             // Filtering...
-            if ($_POST['p_type'] == "-") {
-              // don't care
-            } else if ($_POST['p_type'] == "APARTMENT") {
-              if ($row['Property_type'] != "Apartment") continue;
-            } else if ($_POST['p_type'] == "CONDO") {
-              if ($row['Property_type'] != "Condo") continue;
-            } else if ($_POST['p_type'] == "HOUSE") {
-              if ($row['Property_type'] != "House") continue;
+            // filters property type
+            if (isset($_POST['p_type'])) {
+              if ($_POST['p_type'] == "-") {
+                // don't care
+              } else if ($row['Property_type'] != $_POST['p_type']){
+                 continue;
+              } 
             }
-            if ($_POST['district'] == "-") {
-              // don't care
-            } else if ($_POST['district'] == "NW") {
-              if ($row['District'] != "NW") continue;
-            } else if ($_POST['district'] == "NE") {
-              if ($row['District'] != "NE") continue;
-            } else if ($_POST['district'] == "SW") {
-              if ($row['District'] != "SW") continue;
-            } else if ($_POST['district'] == "SE") {
-              if ($row['District'] != "SE") continue;
-            } else if ($_POST['district'] == "CC") {
-              if ($row['District'] != "CC") continue;
+            // filters district
+            if (isset($_POST['district'])) {
+              if ($_POST['district'] == "-") {
+                // don't care
+              } else if ($row['District'] != $_POST['district']) {
+                continue;
+              } 
             }
-            if ($_POST['pet'] == "-") {
-              // don't care
-            } else if ($_POST['pet'] == "YES") {
-              if ($row['Pet'] != "Yes") continue;
-            } else if ($_POST['pet'] == "NO") {
-              if ($row['Pet'] != "No") continue;
-            } else if ($_POST['pet'] == "LIMITED") {
-              if ($row['Pet'] != "Limited") continue;
+            // filters pet
+            if (isset($_POST['pet'])) {
+              if ($_POST['pet'] == "-") {
+                // don't care
+              } else if ($row['Pet'] != $_POST['pet']) {
+                continue;
+              }
             }
-            if ($_POST['smoking'] == "-") {
-              // don't care
-            } else if ($_POST['smoking'] == "YES") {
-              if ($row['Smoke'] != "Yes") continue;
-            } else if ($_POST['smoking'] == "NO") {
-              if ($row['Smoke'] != "No") continue;
-            } else if ($_POST['smoking'] == "OUT") {
-              if ($row['Smoke'] != "Limited") continue; // need to wait for database update
+            // filters smoke
+            if (isset($_POST['smoking'])) {
+              if ($_POST['smoking'] == "-") {
+                // don't care
+              } else if ($row['Smoke'] != $_POST['smoking']) {
+                continue;
+              }
             }
+            // filters utilities
+            if (isset($_POST['utilities'])) {
+              if ($_POST['utilities'] == "-") {
+                // don't care
+              } else if ($row['Utility'] != $_POST['utilities']) {
+                continue;
+              }
+            }
+
+            // filters furnish
+            if (isset($_POST['furnish'])) {
+              if ($_POST['furnish'] == "-") {
+                // don't care
+              } else if ($row['Furnish'] != $_POST['furnish']) {
+                continue;
+              }
+            }
+            
             // survived from filtering
             $num_prop_displayed++;
             displayProperty($row['Property_id']);
