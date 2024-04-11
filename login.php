@@ -110,7 +110,7 @@
     </div>
     <div class="login-form">
         <form action="login-check.php" method="post">
-            <h1 id=title>SIGN IN</h1>
+            <h1 id=title>LOG IN</h1>
             <?php if (isset($_GET['error'])) { ?>
   		        <p class="error"><?php echo $_GET['error']; ?></p>
             <?php } ?>
