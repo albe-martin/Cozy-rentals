@@ -2,7 +2,7 @@
 
 $sname= "localhost";
 $uname= "root";
-$password = "";
+$password = "mysql";
 
 $db_name = "Cozy_rentals";
 
