@@ -131,11 +131,12 @@ function displayProperty($pid) {
 
 
     <p style="text-align:center"><button>Add to Watchlist</button>
-    <button>Book a Showing</button>
+    <p style="text-align:center"><button>Book a showing</button>
     <form action="deleteproperty.php" method="POST">
       <input type="hidden" name="delete_id" value="<?php echo $pid; ?>">
-      <button type="submit" name="delete">Delete</button>
+      <p style="text-align:center"><button type="submit" name="delete">Delete</button></p>
      </form>
+    </p>
     </p>
   </div>
 <?php
