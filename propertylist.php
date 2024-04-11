@@ -44,17 +44,17 @@
   padding-right: 10px;
 }
 
-/* reference if want to use java script to filter*/
-/* https://www.w3schools.com/howto/howto_js_filter_elements.asp */
+/* Side Nav Bar */
 .sidenav {
   height: 100%;
   top:48px;
-  width: 30%;
+  width: 29%;
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   left: 0;
   background-color: rgb(219, 219, 219);
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 0px;
+  padding-right: 10px;
 }
 
 .sidenav p {
@@ -63,6 +63,48 @@
   font-size: 25px;
   color: #333;
   display: block;
+}
+
+.sidenav form {
+  width: 90%;
+  margin:auto;
+  padding: 10px;
+}
+
+.sidenav form input{
+  width: 95.5%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.sidenav button {
+  margin-top: 3px;
+  margin-bottom: 16px;
+  margin-left: 12;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidenav button:hover {
+  background-color: #555;
+}
+
+.sidenav label {
+  font-size: 16px;
+}
+
+.sidenav select{
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 3px;
+  border: 1px solid #ddd;
 }
 
 /* main content */
@@ -113,6 +155,15 @@
 </style>
 
 <?php
+// PHP FUNCTIONS
+function validate($data){
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+
 function displayProperty($pid) {
   include "db_connect.php";
   $sql = "SELECT * FROM property WHERE Property_id= $pid ";
@@ -169,6 +220,8 @@ function displayProperty($pid) {
 }
 ?>
 
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -205,10 +258,46 @@ function displayProperty($pid) {
       }
     ?>
 
+
     <!-- Side navigation -->
     <div class="sidenav">
       <p>Filter</p>
-      <input type="text" id="pidInput" onkeyup="myFunction()" placeholder="Search with Property ID..">
+      <form action="propertylist.php" method="post">
+        <input name="pidInput" placeholder="Search by Property ID..">
+        <button type="submit">Search</button>
+        <!--Filters-->
+        <label for="p_type">Property Type:</label>
+        <select name="p_type">
+          <option value="-">-</option>
+          <option value="APARTMENT">APARTMENT</option>
+          <option value="CONDO">CONDO</option>
+          <option value="HOUSE">HOUSE</option>
+        </select>
+        <label for="district">District:</label>
+        <select name="district">
+          <option value="-">-</option>
+          <option value="NW">NW</option>
+          <option value="NE">NE</option>
+          <option value="SW">SW</option>
+          <option value="SE">SE</option>
+          <option value="CC">CITY CENTER</option>
+        </select>
+        <label for="pet">Pet:</label>
+        <select name="pet">
+          <option value="-">-</option>
+          <option value="YES">YES</option>
+          <option value="NO">NO</option>
+          <option value="LIMITED">LIMITED</option>
+        </select>
+        <label for="smoking">Smoking:</label>
+        <select name="smoking">
+          <option value="-">-</option>
+          <option value="YES">YES</option>
+          <option value="NO">NO</option>
+          <option value="OUT">OUTDOOR ONLY</option>
+        </select>
+        <button type="submit">Apply Filter</button>
+      </form>
     </div>
 
     <!-- Page content -->
@@ -218,16 +307,68 @@ function displayProperty($pid) {
         include "db_connect.php";
         $sql = "SELECT * FROM property WHERE rental_status= 'Yes' ";  // properties that are still open for rent
 	      $result = mysqli_query($conn, $sql);
+        if (isset($_POST['pidInput']) && $_POST['pidInput'] != ""){
+          // user is searching with pid
+          echo "<p>Result of seaching PID which contains ".$_POST['pidInput']." ... </p>";
+          $pid = validate($_POST['pidInput']);
+          $sql = "SELECT * FROM property WHERE Property_id LIKE '%{$pid}%' ";
+          $result = mysqli_query($conn, $sql);
+        }
+        $num_prop_displayed = 0;
         if (mysqli_num_rows($result) > 0) {
           // display every properties
           while($row = $result->fetch_assoc()) {
+            // Filtering...
+            if ($_POST['p_type'] == "-") {
+              // don't care
+            } else if ($_POST['p_type'] == "APARTMENT") {
+              if ($row['Property_type'] != "Apartment") continue;
+            } else if ($_POST['p_type'] == "CONDO") {
+              if ($row['Property_type'] != "Condo") continue;
+            } else if ($_POST['p_type'] == "HOUSE") {
+              if ($row['Property_type'] != "House") continue;
+            }
+            if ($_POST['district'] == "-") {
+              // don't care
+            } else if ($_POST['district'] == "NW") {
+              if ($row['District'] != "NW") continue;
+            } else if ($_POST['district'] == "NE") {
+              if ($row['District'] != "NE") continue;
+            } else if ($_POST['district'] == "SW") {
+              if ($row['District'] != "SW") continue;
+            } else if ($_POST['district'] == "SE") {
+              if ($row['District'] != "SE") continue;
+            } else if ($_POST['district'] == "CC") {
+              if ($row['District'] != "CC") continue;
+            }
+            if ($_POST['pet'] == "-") {
+              // don't care
+            } else if ($_POST['pet'] == "YES") {
+              if ($row['Pet'] != "Yes") continue;
+            } else if ($_POST['pet'] == "NO") {
+              if ($row['Pet'] != "No") continue;
+            } else if ($_POST['pet'] == "LIMITED") {
+              if ($row['Pet'] != "Limited") continue;
+            }
+            if ($_POST['smoking'] == "-") {
+              // don't care
+            } else if ($_POST['smoking'] == "YES") {
+              if ($row['Smoke'] != "Yes") continue;
+            } else if ($_POST['smoking'] == "NO") {
+              if ($row['Smoke'] != "No") continue;
+            } else if ($_POST['smoking'] == "OUT") {
+              if ($row['Smoke'] != "Limited") continue; // need to wait for database update
+            }
+            // survived from filtering
+            $num_prop_displayed++;
             displayProperty($row['Property_id']);
           }
-        } else if (mysqlii_num_rows($result) === 0){
+        }
+        if (mysqli_num_rows($result) === 0 || $num_prop_displayed == 0){
           // no properties to displaay
           ?>
           <div class="card">
-            <h2>"No Result Found. :<"</h2>
+            <h2>No Result Found. :<</h2>
           </div>
           <?php
         }
