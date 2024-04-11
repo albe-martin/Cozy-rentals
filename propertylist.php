@@ -205,9 +205,10 @@ function displayProperty($pid) {
       }
     ?>
 
-    <!-- Side navigation ref: https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_type_radio-->
+    <!-- Side navigation -->
     <div class="sidenav">
       <p>Filter</p>
+      <input type="text" id="pidInput" onkeyup="myFunction()" placeholder="Search with Property ID..">
     </div>
 
     <!-- Page content -->
