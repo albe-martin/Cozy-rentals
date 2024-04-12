@@ -71,8 +71,15 @@
   padding: 10px;
 }
 
-.sidenav form input{
+.sidenav form input[type=search]{
   width: 95.5%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.sidenav form input[type=number]{
+  width: 40%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ddd;
@@ -264,7 +271,7 @@ function displayProperty($pid) {
     <div class="sidenav">
       <p>Filter</p>
       <form action="propertylist.php" method="post">
-        <input name="pidInput" placeholder="Search by Property ID..">
+        <input type="search" name="pidInput" placeholder="Search by Property ID..">
         <button type="submit">Search</button>
         <!--Filters (values has to match with database)-->
         <label for="p_type">Property Type:</label>
@@ -274,6 +281,22 @@ function displayProperty($pid) {
           <option value="Condo">Condo</option>
           <option value="House">House</option>
         </select>
+
+        <label for="price_min">Price Range:</label><br/>
+        <input type="number" name="price_min" placeholder="MIN">
+        <label for="price_max"> ~ </label>
+        <input type="number" name="price_max" placeholder="MAX"><br/>
+
+        <label for="size_min">Size Range:</label><br/>
+        <input type="number" name="size_min" placeholder="MIN">
+        <label for="size_max"> ~ </label>
+        <input type="number" name="size_max" placeholder="MAX"><br/>
+
+        <label for="num_bedroom">Number of Bedrooms:</label><br/>
+        <input type="number" name="num_bedroom" placeholder="-"><br/>
+        <label for="num_bathroom">Number of Bathrooms:</label><br/>
+        <input type="number" name="num_bathroom" placeholder="-"><br/>
+
         <label for="district">District:</label>
         <select name="district">
           <option value="-">-</option>
@@ -341,6 +364,55 @@ function displayProperty($pid) {
                  continue;
               } 
             }
+
+            // filter min/max price
+            if (isset($_POST['price_min'])){
+              if ($_POST['price_min'] == ""){
+                // dont't care
+              } else if ($row['Cost_Per_Month'] < $_POST['price_min']){
+                continue;
+              }
+            }
+            if (isset($_POST['price_max'])){
+              if ($_POST['price_max'] == ""){
+                // dont't care
+              } else if ($row['Cost_Per_Month'] > $_POST['price_max']){
+                continue;
+              }
+            }
+            // filter min/max size
+            if (isset($_POST['size_min'])){
+              if ($_POST['size_min'] == ""){
+                // dont't care
+              } else if ($row['Size'] < $_POST['size_min']){
+                continue;
+              }
+            }
+            if (isset($_POST['size_max'])){
+              if ($_POST['size_max'] == ""){
+                // dont't care
+              } else if ($row['Size'] > $_POST['size_max']){
+                continue;
+              }
+            }
+
+            //filters num_bedroom
+            if (isset($_POST['num_bedroom'])){
+              if ($_POST['num_bedroom'] == ""){
+                // dont't care
+              } else if ($row['num_bedrooms'] != $_POST['num_bedroom']){
+                continue;
+              }
+            }
+            //filters num_bathroom
+            if (isset($_POST['num_bathroom'])){
+              if ($_POST['num_bathroom'] == ""){
+                // dont't care
+              } else if ($row['num_bathrooms'] != $_POST['num_bathroom']){
+                continue;
+              }
+            }
+
             // filters district
             if (isset($_POST['district'])) {
               if ($_POST['district'] == "-") {
