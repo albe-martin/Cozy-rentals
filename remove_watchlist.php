@@ -12,6 +12,7 @@ if (isset($_POST['rm_btn'])) {
         exit();
     } else {
 		header("Location: watchlist.php?error= Property ".$pid." failed to removed from the watchlist");
+        exit();
     }
 
 }else{

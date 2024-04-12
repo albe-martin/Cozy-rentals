@@ -7,6 +7,7 @@ if (isset($_POST['rm_btn'])) {
     if (!isset($_SESSION['login'])) { 
         //if not login
         header("Location: propertylist.php?error= Please login to continue.");
+        exit();
     } else {
         $sql = "DELETE FROM watchlist WHERE property_id='$pid' AND Client_email = '$_SESSION[email]'";
         $result = mysqli_query($conn, $sql);
@@ -16,6 +17,7 @@ if (isset($_POST['rm_btn'])) {
             exit();
         } else {
             header("Location: propertylist.php?error= Property ".$pid." failed to removed from the watchlist");
+            exit();
         }
     }
 

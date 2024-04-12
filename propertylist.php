@@ -277,10 +277,11 @@ function displayProperty($pid) {
           // is not in watchlist
         ?>
           <p style="text-align:center">
-            <form style="none" action="" method="POST"> 
-            <input type="submit" name="btn" value="Add to Watchlist" class="btn">
-            <input type="submit" name="btn" value="Book a Showing" class="btn">
-            <input type="submit" name="btn" value="Rent Now" class="btn">
+            <form style="none" action="add_watchlist.php" method="POST"> 
+              <input type="hidden" name="pid" value="<?php echo $pid; ?>">
+              <input type="submit" name="btn" value="Add to Watchlist" class="btn">
+              <button>Book a Showing</button>
+              <button>Rent Now</button>
             </form>
           </p>
         <?php
