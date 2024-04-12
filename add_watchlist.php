@@ -13,13 +13,14 @@ if (isset($_POST['btn'])) {
         header("Location: propertylist.php?success= Property ".$pid." has been added to your watchlist" );
         exit();
     } else {
-        header("Location: watchlist.php?error= Property ".$pid." failed to add to your watchlist");
+        header("Location: propertylist.php?error= Property ".$pid." failed to add to your watchlist");
         exit();
     }
 
 }else{
-	header("Location: register.php");
+	header("Location: propertylist.php");
 	exit();
 }
 
 ?>
+       
