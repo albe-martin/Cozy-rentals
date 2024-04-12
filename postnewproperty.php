@@ -1,22 +1,87 @@
+<?php
+    session_start();
+    // note: only login as admin gets to see this page
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+    
+<style>
+.topnav {
+  overflow: hidden;
+  float:top;
+  top:0;
+  left:0;
+  width: 100%;
+  background-color: #333;
+  position:fixed;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: tan;
+  color: white;
+}
+
+.topnav p{
+  float: right;
+  color: #f2f2f2;
+  font-size: 14px;
+  text-decoration: underline;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* main content */
+.main {
+  height:100%;
+  margin-top: 60px;
+  padding: 0px 10px;
+}
+
+</style>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Property</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Post Property</title>
 </head>
-<body class="bg-gray-100">
-    <div class="topnav">
-        <a href="index.php">Index</a>
-        <a href="adminpropertylist.php">Manage Properties</a>
-        <a class="active" href="postnewproperty.php">Post Property</a>
-        <a href="logout.php">Log Out</a>
-        <p>Admin: <?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?></p>
-    </div>
 
-    <div class="main mt-10 sm:mt-0">
+<body>
+  <?php // code for top navigation bar
+    if (!isset($_SESSION['login'])) { // if not login
+      header("Location: index.php");  // redirect back to index
+    } else if ($_SESSION['type'] === 'client') { // when login as client
+      header("Location: index.php");  // redirect back to index
+    } else if ($_SESSION['type'] === 'admin') { // when login as admin
+  ?>
+    <div class="topnav">
+    <a href="index.php">Index</a>
+    <a href="adminpropertylist.php">Manage Properties</a>
+    <a class="active" href="postnewproperty.php">Post Property</a>
+    <a href="logout.php">Log Out</a>
+    <p><?php echo "Admin: " . $_SESSION['fname'] ." ". $_SESSION['lname']; ?></p>
+    </div>
+  <?php 
+    }
+  ?>
+
+    <div class="main">
         <div class="md:grid md:grid-cols-3 md:gap-6">
             <div class="md:col-span-1">
                 <div class="px-4 sm:px-0">
@@ -126,39 +191,5 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .topnav {
-            overflow: hidden;
-            background-color: #333;
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
-        .topnav a {
-            float: left;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-        .topnav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        .topnav a.active {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .topnav p {
-            float: right;
-            color: #f2f2f2;
-            font-size: 14px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-    </style>
-
 </body>
 </html>
