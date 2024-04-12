@@ -160,6 +160,41 @@
   color: black;
 }
 
+.btn {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: #f2f2f2;
+  background-color: #333;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  width: 32.5%;
+}
+
+.btn:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.error {
+   background: #F2DEDE;
+   color: #a52e1b;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
+}
+
+.success {
+   background: #D4EDDA;
+   color: #40754C;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
+}
 </style>
 
 <?php
@@ -208,26 +243,51 @@ function displayProperty($pid) {
       echo "<p>"."Interior Designs: "."None"."</p>"; 
     }
     ?> 
+    
     <!--Buttons for each property-->
-    <p style="text-align:center">
     <?php
       if (!isset($_SESSION['login'])) {
-        echo "<button>Add to Watchlist</button>";
-      } else if ($_SESSION['type'] === 'client') {;
+        // no buttons work when not login
+      ?>
+        <p style="text-align:center">
+        <form style="none" action="askforlogin.php" method="POST"> 
+          <input type="submit" name="btn" value="Add to Watchlist" class="btn">
+          <input type="submit" name="btn" value="Book a Showing" class="btn">
+          <input type="submit" name="btn" value="Rent Now" class="btn">
+        </form>
+        </p>
+      <?php
+      } else if ($_SESSION['type'] === 'client') {
         // see if is already in watchlist
         $sql_watchlist = "SELECT * FROM watchlist WHERE property_id = $pid AND Client_email = '$_SESSION[email]'";
         $result_watchlist = mysqli_query($conn, $sql_watchlist);
         if (mysqli_num_rows($result_watchlist) > 0){
           // is already in watchlist
-          echo "<button>Remove From Watchlist</button>";
+        ?>
+            <p style="text-align:center">
+              <form style="none" action="remove_watchlist_pl.php" method="POST">
+                <input type="hidden" name="pid" value="<?php echo $pid; ?>">
+                <input type="submit" name="rm_btn" value="Remove From Watchlist" class="btn">
+                <button>Book a Showing</button>
+                <button>Rent Now</button>
+              </form>
+            </p>
+        <?php
         } else if (mysqli_num_rows($result_watchlist) === 0) {
-          echo "<button>Add to Watchlist</button>";
+          // is not in watchlist
+        ?>
+          <p style="text-align:center">
+            <form style="none" action="" method="POST"> 
+            <input type="submit" name="btn" value="Add to Watchlist" class="btn">
+            <input type="submit" name="btn" value="Book a Showing" class="btn">
+            <input type="submit" name="btn" value="Rent Now" class="btn">
+            </form>
+          </p>
+        <?php
         }
       }
     ?>
 
-    <button>Book a Showing</button>
-    <button>Rent Now</button></p>
   </div>
 <?php
   } else {
@@ -372,6 +432,13 @@ function displayProperty($pid) {
 
     <!-- Page content -->
     <div class="main">
+      <?php if (isset($_GET['error'])) { ?>
+        <p class="error"><?php echo $_GET['error']; ?></p>
+      <?php } ?>
+      <?php if (isset($_GET['success'])) { ?>
+          <p class="success"><?php echo $_GET['success']; ?></p>
+      <?php } ?>
+
       <?php
         // display properties
         include "db_connect.php";

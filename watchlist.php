@@ -71,7 +71,24 @@
   width:100%;
 }
 
-.card button {
+.card button{
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: #f2f2f2;
+  background-color: #333;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  width: 32.5%;
+}
+.card button:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.btn {
   border: none;
   outline: 0;
   padding: 12px;
@@ -84,22 +101,32 @@
   width: 32.5%;
 }
 
-.card button:hover {
+.btn:hover {
   background-color: #ddd;
   color: black;
+}
+
+.error {
+   background: #F2DEDE;
+   color: #a52e1b;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
+}
+
+.success {
+   background: #D4EDDA;
+   color: #40754C;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
 }
 </style>
 
 <?php
 // PHP FUNCTIONS
-function validate($data){
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-
-
 function displayProperty($pid) {
   include "db_connect.php";
   $sql = "SELECT * FROM property WHERE Property_id= $pid ";
@@ -138,9 +165,13 @@ function displayProperty($pid) {
     ?> 
     <!--Buttons for each property-->
     <p style="text-align:center">
-    <button>Remove From Watchlist</button>
-    <button>Book a Showing</button>
-    <button>Rent Now</button></p>
+    <form style="none" action="remove_watchlist.php" method="POST">
+      <input type="hidden" name="pid" value="<?php echo $pid; ?>">
+      <input type="submit" name="rm_btn" value="Remove From Watchlist" class="btn">
+      <button>Book a Showing</button>
+      <button>Rent Now</button>
+    </form>
+    </p>
   </div>
 <?php
   } else {
@@ -185,6 +216,13 @@ function displayProperty($pid) {
 
     <!-- Page content -->
     <div class="main">
+      <?php if (isset($_GET['error'])) { ?>
+        <p class="error"><?php echo $_GET['error']; ?></p>
+      <?php } ?>
+      <?php if (isset($_GET['success'])) { ?>
+          <p class="success"><?php echo $_GET['success']; ?></p>
+      <?php } ?>
+
       <?php
         // display properties
         include "db_connect.php";
@@ -195,11 +233,11 @@ function displayProperty($pid) {
           while($row = $result->fetch_assoc()) {
             displayProperty($row['property_id']);
           }
-        } else if (mysqlii_num_rows($result) === 0){
+        } else if (mysqli_num_rows($result) === 0){
           // no properties to displaay
           ?>
           <div class="card">
-            <h2>"No Result Found. :<"</h2>
+            <h2>"Nothing is in the watchlisy yet."</h2>
           </div>
           <?php
         }
