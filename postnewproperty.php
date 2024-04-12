@@ -1,6 +1,12 @@
 <?php
     session_start();
     // note: only login as admin gets to see this page
+    function validate($data){
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -52,145 +58,138 @@
   padding: 0px 10px;
 }
 
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select,
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
 </style>
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--style-->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Post Property</title>
-</head>
-
 <body>
-  <?php // code for top navigation bar
-    if (!isset($_SESSION['login'])) { // if not login
-      header("Location: index.php");  // redirect back to index
-    } else if ($_SESSION['type'] === 'client') { // when login as client
-      header("Location: index.php");  // redirect back to index
-    } else if ($_SESSION['type'] === 'admin') { // when login as admin
-  ?>
     <div class="topnav">
     <a href="index.php">Index</a>
     <a href="adminpropertylist.php">Manage Properties</a>
     <a class="active" href="postnewproperty.php">Post Property</a>
     <a href="logout.php">Log Out</a>
-    <p><?php echo "Admin: " . $_SESSION['fname'] ." ". $_SESSION['lname']; ?></p>
+    <p>Admin: <?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?></p>
     </div>
-  <?php 
-    }
-  ?>
 
     <div class="main">
-        <div class="md:grid md:grid-cols-3 md:gap-6">
-            <div class="md:col-span-1">
-                <div class="px-4 sm:px-0">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Property Information</h3>
-                    <p class="mt-1 text-sm text-gray-600">Use this form to add a new property to the database.</p>
-                </div>
+        <h2>Post a New Property</h2>
+        <form action="submit_property.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="propertyid">Property ID:</label>
+                <input type="text" id="propertyid" name="propertyid" required>
             </div>
-            <div class="mt-5 md:mt-0 md:col-span-2">
-                <form action="addproperty.php" method="POST" enctype="multipart/form-data">
-                    <div class="shadow overflow-hidden sm:rounded-md">
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <div class="grid grid-cols-6 gap-6">
-                                <!-- Property ID -->
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="property_id" class="block text-sm font-medium text-gray-700">Property ID</label>
-                                    <input type="text" name="property_id" id="property_id" autocomplete="property-id" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-                                
-                                <!-- Property Type -->
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="property_type" class="block text-sm font-medium text-gray-700">Property Type</label>
-                                    <select id="property_type" name="property_type" autocomplete="property-type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="Apartment">Apartment</option>
-                                        <option value="House">House</option>
-                                        <option value="Condo">Condo</option>
-                                        <option value="Townhouse">Townhouse</option>
-                                    </select>
-                                </div>
-
-                                <!-- Number of Bedrooms and Bathrooms -->
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="num_bedrooms" class="block text-sm font-medium text-gray-700">Number of Bedrooms</label>
-                                    <input type="number" name="num_bedrooms" id="num_bedrooms" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="num_bathrooms" class="block text-sm font-medium text-gray-700">Number of Bathrooms</label>
-                                    <input type="number" name="num_bathrooms" id="num_bathrooms" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-
-                                <!-- Size and Cost -->
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="size" class="block text-sm font-medium text-gray-700">Size (sq ft)</label>
-                                    <input type="number" name="size" id="size" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="cost_per_month" class="block text-sm font-medium text-gray-700">Cost Per Month ($)</label>
-                                    <input type="text" name="cost_per_month" id="cost_per_month" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-
-                                <!-- Location Details -->
-                                <div class="col-span-6">
-                                    <label for="street" class="block text-sm font-medium text-gray-700">Street</label>
-                                    <input type="text" name="street" id="street" autocomplete="street-address" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-                                <div class="col-span-6 sm:col-span-2">
-                                    <label for="district" class="block text-sm font-medium text-gray-700">District</label>
-                                    <input type="text" name="district" id="district" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-                                <div class="col-span-6 sm:col-span-2">
-                                    <label for="postal_code" class="block text-sm font-medium text-gray-700">Postal Code</label>
-                                    <input type="text" name="postal_code" id="postal_code" autocomplete="postal-code" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-                                <div class="col-span-6 sm:col-span-2">
-                                    <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
-                                    <input type="text" name="province" id="province" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                                </div>
-
-                                <!-- Utilities, Pets, and Smoking -->
-                                <div class="col-span-6 sm:col-span-2">
-                                    <label for="utility" class="block text-sm font-medium text-gray-700">Utilities Included</label>
-                                    <select id="utility" name="utility" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                                <div class="col-span-6 sm:col-span-2">
-                                    <label for="pet" class="block text-sm font-medium text-gray-700">Pets Allowed</label>
-                                    <select id="pet" name="pet" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="None">None</option>
-                                        <option value="Cats">Cats</option>
-                                        <option value="Dogs">Dogs</option>
-                                        <option value="Cats and Dogs">Cats and Dogs</option>
-                                    </select>
-                                </div>
-                                <div class="col-span-6 sm:col-span-2">
-                                    <label for="smoke" class="block text-sm font-medium text-gray-700">Smoking Allowed</label>
-                                    <select id="smoke" name="smoke" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-
-                                <!-- Interior Design -->
-                                <div class="col-span-6">
-                                    <label for="interior_design" class="block text-sm font-medium text-gray-700">Interior Design (comma-separated)</label>
-                                    <input type="text" name="interior_design" id="interior_design" placeholder="e.g., Modern, Minimalist, Industrial" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </form>
+            <div class="form-group">
+                <label for="owneremail">Owner's Email:</label>
+                <input type="email" id="owneremail" name="owneremail" required>
+                <label for="ownerphone">Owner's Phone Number:</label>
+                <input type="text" id="ownerphone" name="ownerphone" required>
+                <label for="ownerfname">Owner's First Name:</label>
+                <input type="text" id="ownerfname" name="ownerfname" required>
+                <label for="ownerlname">Owner's Last Name:</label>
+                <input type="text" id="ownerlname" name="ownerlname" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="numbedrooms">Number of Bedrooms:</label>
+                <input type="number" id="numbedrooms" name="numbedrooms" min="0" required>
+                <label for="numbathrooms">Number of Bathrooms:</label>
+                <input type="number" id="numbathrooms" name="numbathrooms" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="size">Size (sq ft):</label>
+                <input type="number" id="size" name="size" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="propertytype">Property Type:</label>
+                <select id="propertytype" name="propertytype">
+                    <option value="Apartment">Apartment</option>
+                    <option value="House">House</option>
+                    <option value="Condo">Condo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cost">Cost Per Month ($):</label>
+                <input type="number" id="cost" name="cost" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="utilityfees">Utility Fees Included:</label>
+                <select id="utilityfees" name="utilityfees">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Partial">Partial</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="district">District:</label>
+                <select id="district" name="district">
+                    <option value="NW">NW</option>
+                    <option value="NE">NE</option>
+                    <option value="SW">SW</option>
+                    <option value="SE">SE</option>
+                    <option value="CITY CENTER">City Center</option>
+                </select>
+                <input type="text" id="no" name="no" placeholder="House No" required>
+                <input type="text" id="street" name="street" placeholder="Street" required>
+                <input type="text" id="postalcode" name="postalcode" placeholder="Postal Code" required>
+                <input type="text" id="province" name="province" placeholder="Province" required>
+            </div>
+            <div class="form-group">
+                <label for="pets">Pets Allowed:</label>
+                <select id="pets" name="pets">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Limited">Limited</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="smoke">Smoking Allowed:</label>
+                <select id="smoke" name="smoke">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="OUTDOOR ONLY">Outdoor Only</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="interiordesign">Interior Design:</label>
+                <select multiple id="interiordesign" name="interiordesign[]">
+                    <option value="EAST ASIAN">East Asian</option>
+                    <option value="EUROPEAN">European</option>
+                    <option value="INDIAN">Indian</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="propertyimage">Property Image:</label>
+                <input type="file" id="propertyimage" name="propertyimage" accept="image/*">
+            </div>
+            <button type="submit" name="submit">Submit Property</button>
+        </form>
     </div>
 </body>
 </html>
