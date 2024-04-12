@@ -195,22 +195,37 @@ function displayProperty($pid) {
     echo "<p>"."Utility Fees Included: ".$row['Utility']."</p>";
     echo "<p>"."Furnitures: ".$row['Furnish']."</p>"; 
 
-    $sql2 = "SELECT * FROM `interior design` WHERE Property_id= $pid ";
-    $result2 = mysqli_query($conn, $sql2);
-    if (mysqli_num_rows($result2) > 0) {
+    $sql_interior = "SELECT * FROM `interior design` WHERE Property_id= $pid ";
+    $result_interior = mysqli_query($conn, $sql_interior);
+    if (mysqli_num_rows($result_interior) > 0) {
       echo "<p>"."Interior Designs: "."</p>"; 
       ?><ul><?php
-      while($row2 = $result2->fetch_assoc()) {
+      while($row2 = $result_interior->fetch_assoc()) {
         echo "<li>"."\t".$row2['interior_design']."</li>"; 
       }
       ?></ul><?php
-    } else if (mysqli_num_rows($result2) === 0) {
+    } else if (mysqli_num_rows($result_interior) === 0) {
       echo "<p>"."Interior Designs: "."None"."</p>"; 
     }
     ?> 
+    <!--Buttons for each property-->
+    <p style="text-align:center">
+    <?php
+      if (!isset($_SESSION['login'])) {
+        echo "<button>Add to Watchlist</button>";
+      } else if ($_SESSION['type'] === 'client') {;
+        // see if is already in watchlist
+        $sql_watchlist = "SELECT * FROM watchlist WHERE property_id = $pid AND Client_email = '$_SESSION[email]'";
+        $result_watchlist = mysqli_query($conn, $sql_watchlist);
+        if (mysqli_num_rows($result_watchlist) > 0){
+          // is already in watchlist
+          echo "<button>Remove From Watchlist</button>";
+        } else if (mysqli_num_rows($result_watchlist) === 0) {
+          echo "<button>Add to Watchlist</button>";
+        }
+      }
+    ?>
 
-
-    <p style="text-align:center"><button>Add to Watchlist</button>
     <button>Book a Showing</button>
     <button>Rent Now</button></p>
   </div>
@@ -228,6 +243,17 @@ function displayProperty($pid) {
 }
 ?>
 
+
+<script>
+  //https://www.w3schools.com/howto/howto_js_popup_form.asp
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+</script>
 
 
 <head>
@@ -332,6 +358,13 @@ function displayProperty($pid) {
           <option value="-">-</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
+        </select>
+        <label for="interior">Interior Design:</label>
+        <select name="interior">
+          <option value="-">-</option>
+          <option value="East Asian">East Asian</option>
+          <option value="European">European</option>
+          <option value="Indian">Indian</option>
         </select>
         <button type="submit">Apply Filter</button>
       </form>
@@ -452,6 +485,19 @@ function displayProperty($pid) {
                 // don't care
               } else if ($row['Furnish'] != $_POST['furnish']) {
                 continue;
+              }
+            }
+
+            // filters interior design
+            if (isset($_POST['interior'])) {
+              if ($_POST['interior'] == "-") {
+                // don't care
+              } else {
+                $sql_interior = "SELECT * FROM `interior design` WHERE Property_id= '$row[Property_id]' AND interior_design= '$_POST[interior]' ";
+                $result_interior = mysqli_query($conn, $sql_interior);
+                if (mysqli_num_rows($result_interior) === 0){
+                  continue;
+                }
               }
             }
             
