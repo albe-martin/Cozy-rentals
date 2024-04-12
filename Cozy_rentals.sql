@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2024 at 10:47 PM
+-- Generation Time: Apr 12, 2024 at 07:33 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -98,7 +98,11 @@ CREATE TABLE `Own` (
 INSERT INTO `Own` (`owner_email`, `property_id`) VALUES
 ('owner1@gmail.com', 102),
 ('owner2@gmail.com', 101),
-('owner3@gmail.com', 103);
+('owner3@gmail.com', 103),
+('owner2@gmail.com', 104),
+('owner4@gmail.com', 105),
+('owner5@gmail.com', 106),
+('owner1@gmail.com', 107);
 
 -- --------------------------------------------------------
 
@@ -120,7 +124,9 @@ CREATE TABLE `Owner` (
 INSERT INTO `Owner` (`Email`, `Phone_no`, `FName`, `LName`) VALUES
 ('owner1@gmail.com', 403712345, 'Martin', 'Junior'),
 ('owner2@gmail.com', 413256999, 'Ricardo', 'Kaka'),
-('owner3@gmail.com', 523789654, 'Jeanette', 'Henry');
+('owner3@gmail.com', 523789654, 'Jeanette', 'Henry'),
+('owner4@gmail.com', 403546145, 'Tery', 'Jackson'),
+('owner5@gmail.com', 513897654, 'Neymar', 'Jr');
 
 -- --------------------------------------------------------
 
@@ -193,9 +199,13 @@ CREATE TABLE `Property` (
 --
 
 INSERT INTO `Property` (`Property_id`, `Size`, `Property_type`, `Pet`, `Smoke`, `Cost_Per_Month`, `Utility`, `Furnish`, `District`, `No.`, `Street`, `PostalCode`, `Province`, `num_bedrooms`, `num_bathrooms`, `rental_status`, `admin_who_post`) VALUES
-(101, 1257, 'Apartment', 'Yes', 'No', 1600, 'No', 'No', 'NW', 1415, '1st Street', 'T2N 4W1', 'AB', 2, 1, 'Yes', 'admin2@gmail.com'),
+(101, 2010, 'Apartment', 'Yes', 'No', 1700, 'No', 'No', 'NW', 7821, '1st street Homwlander', 'T2K 5Y1', 'AB', 3, 1, 'yes', 'admin2@gmail.com'),
 (102, 1032, 'Condo', 'Yes', 'Yes', 900, 'No', 'No', 'SW', 1919, '31st Homeland Street', 'T2N 1Y2', 'AB', 1, 1, 'Yes', 'admin3@gmail.com'),
-(103, 2500, 'House', 'No', 'Yes', 2499, 'Yes', 'Yes', 'NE', 2515, '3 avenue Debee Street', 'T2N 1Q1', 'AB', 3, 3, 'No', 'admin1@gmail.com');
+(103, 2500, 'House', 'No', 'Yes', 2499, 'Yes', 'Yes', 'NE', 2515, '3 avenue Debee Street', 'T2N 1Q1', 'AB', 3, 3, 'No', 'admin1@gmail.com'),
+(104, 6600, 'Mansion', 'Yes', 'No', 4500, 'Yes', 'No', 'SW', 11, '1st Street Mansionvilla', 'T1D E1O', 'AB', 6, 6, 'Yes', 'admin1@gmail.com'),
+(105, 900, 'Basement', 'No', 'Yes', 890, 'No', 'No', 'SE', 1715, '17 Street 15 Avenue Entehome', 'T5D L8R', 'AB', 1, 1, 'Yes', 'admin3@gmail.com'),
+(106, 2550, 'Duplex', 'No', 'Yes', 1400, 'No', 'Yes', 'NE', 2322, '9th Street 23 Avenue Johnpark', 'T5B 4J9', 'AB', 2, 1, 'Yes', 'admin3@gmail.com'),
+(107, 3200, 'Apartment', 'Yes', 'Yes', 2100, 'No', 'Yes', 'NE', 555, '7th Street Teripath', 'T5E 7W8', 'AB', 2, 2, 'Yes', 'admin2@gmail.com');
 
 -- --------------------------------------------------------
 
