@@ -195,7 +195,101 @@
    border-radius: 5px;
    margin: 20px auto;
 }
+
+/**Pop up forms */
+{box-sizing: border-box;}
+
+/* The popup form - hidden by default */
+.showing-form-popup {
+  top:48px;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  height: 100%;
+}
+
+.payment-form-popup {
+  top:48px;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  height: 100%;
+}
+
+/* Add styles to the form container */
+.form-container {
+  top:48px;
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+  height: 100%;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=datetime-local], .form-container input[type=password], .form-container input[type=number] {
+  width: 90%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: 1px solid #ddd;
+  background: #f1f1f1;
+}
+
+.form-container select{
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  margin: 5px 0 22px 0;
+  border: 1px solid #ddd;
+  background: #f1f1f1;
+  text-transform: uppercase;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #333;
+  color: #f2f2f2;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: tan;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
 </style>
+
+<script>
+  //https://www.w3schools.com/howto/howto_js_popup_form.asp
+  function openShowingForm(id) {
+    document.getElementById("showingForm".concat(id)).style.display = "block";
+  }
+
+  function closeShowingForm(id) {
+    document.getElementById("showingForm".concat(id)).style.display = "none";
+  }
+  function openPaymentForm(id) {
+    document.getElementById("paymentForm".concat(id)).style.display = "block";
+  }
+
+  function closePaymentForm(id) {
+    document.getElementById("paymentForm".concat(id)).style.display = "none";
+  }
+</script>
 
 <?php
 // PHP FUNCTIONS
@@ -265,27 +359,49 @@ function displayProperty($pid) {
           // is already in watchlist
         ?>
             <p style="text-align:center">
-              <form style="none" action="remove_watchlist_pl.php" method="POST">
+              <form style="display: inline;" action="remove_watchlist_pl.php" method="POST">
                 <input type="hidden" name="pid" value="<?php echo $pid; ?>">
                 <input type="submit" name="rm_btn" value="Remove From Watchlist" class="btn">
-                <button>Book a Showing</button>
-                <button>Rent Now</button>
               </form>
+              <button onclick="openShowingForm(<?php echo $pid; ?>)">Book a Showing</button>
+              <button onclick="openPaymentForm(<?php echo $pid; ?>)">Rent Now</button>
             </p>
         <?php
         } else if (mysqli_num_rows($result_watchlist) === 0) {
           // is not in watchlist
         ?>
           <p style="text-align:center">
-            <form style="none" action="add_watchlist.php" method="POST"> 
+            <form style="display: inline;" action="add_watchlist.php" method="POST"> 
               <input type="hidden" name="pid" value="<?php echo $pid; ?>">
               <input type="submit" name="btn" value="Add to Watchlist" class="btn">
-              <button>Book a Showing</button>
-              <button>Rent Now</button>
             </form>
+            <button onclick="openShowingForm(<?php echo $pid; ?>)">Book a Showing</button>
+            <button onclick="openPaymentForm(<?php echo $pid; ?>)">Rent Now</button>
           </p>
         <?php
         }
+        ?>
+
+        <!-- pop-up forms -->
+        <div class="showing-form-popup" id="showingForm<?php echo $pid; ?>">
+        <form action="bookshowing.php" class="form-container" method="POST">
+          <input type="hidden" name="pid" value="<?php echo $pid; ?>">
+          <h1>Booking a Showing</h1>
+          <h2>(for PID: <?php echo $pid; ?>)</h2>
+          <label for="showtype">Showing Type</label>
+          <select name="showtype">
+            <option value="In-person">In-person</option>
+            <option value="Virtual">Virtual (ZOOM)</option>
+          </select>
+
+          <label for="showtime">Showing Time (date and time):</label>
+          <input type="datetime-local" id="showtime" name="showtime" required>
+
+          <button type="submit" class="btn" name="btn">Book</button>
+          <button type="button" class="btn cancel" onclick="closeShowingForm(<?php echo $pid; ?>)">Close</button>
+        </form>
+        </div>
+        <?php
       }
     ?>
 
@@ -303,18 +419,6 @@ function displayProperty($pid) {
   }
 }
 ?>
-
-
-<script>
-  //https://www.w3schools.com/howto/howto_js_popup_form.asp
-  function openForm() {
-    document.getElementById("myForm").style.display = "block";
-  }
-
-  function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-  }
-</script>
 
 
 <head>
@@ -586,6 +690,7 @@ function displayProperty($pid) {
           <?php
         }
       ?>
+      
     </div>
 </body>
 </html>
