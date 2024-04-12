@@ -1,6 +1,12 @@
 <?php
     session_start();
     // note: only login as admin gets to see this page
+    function validate($data){
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +87,7 @@
   cursor: pointer;
   width: 100%;
   font-size: 18px;
-  width: 32.5%;
+
 }
 
 .card button:hover {
@@ -127,11 +133,29 @@ function displayProperty($pid) {
     } else if (mysqli_num_rows($result2) === 0) {
       echo "<p>"."Interior Designs: "."None"."</p>"; 
     }
+    echo "<hr/>"; 
+    // special contents for admin
+    // TODO: ADD MORE CONTENT ABOUT THE PROPERTY
+    // SUCH AS OWNER'S NAME and EMAIL
+    // REANTAL STATus
+    // IF IS RENTED, ALSO SHOW THE CLIENTS NAME AND EMAIL
+    // EXAMPLE
+    $admin_email = validate($row['admin_who_post']);
+    $sql_admin_name = "SELECT * FROM `user` WHERE Email = '$admin_email' ";
+    $result_admin_name = mysqli_query($conn, $sql_admin_name);
+    if ($result_admin_name == FALSE) {
+      //debug
+      echo mysqli_error($conn);
+    }
+    if (mysqli_num_rows($result_admin_name) == 1) {
+      $admin_names = $result_admin_name->fetch_assoc();
+      echo "<p>"."Posted by: ".$admin_names['FName']." ".$admin_names['LName']." (".$row['admin_who_post'].")</p>"; 
+    } else {
+      echo "<p>"."Posted by: Unknown Admin (".$row['admin_who_post'].")</p>"; 
+    }
     ?> 
 
-
-    <p style="text-align:center"><button>Add to Watchlist</button>
-    <p style="text-align:center"><button>Book a showing</button>
+    <!--Buttons-->
     <form action="deleteproperty.php" method="POST">
       <input type="hidden" name="delete_id" value="<?php echo $pid; ?>">
       <p style="text-align:center"><button type="submit" name="delete">Delete</button></p>
@@ -183,7 +207,7 @@ function displayProperty($pid) {
       <?php
         // display properties
         include "db_connect.php";
-        $sql = "SELECT * FROM property WHERE rental_status= 'Yes' ";  // properties that are still open for rent
+        $sql = "SELECT * FROM property ";  // properties that are still open for rent
 	      $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
           // display every properties
