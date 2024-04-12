@@ -367,6 +367,9 @@ function displayProperty($pid) {
           <option value="Apartment">Apartment</option>
           <option value="Condo">Condo</option>
           <option value="House">House</option>
+          <option value="Mansion">Mansion</option>
+          <option value="Basement">Basement</option>
+          <option value="Duplex">Duplex</option>
         </select>
 
         <label for="price_min">Price Range:</label><br/>
