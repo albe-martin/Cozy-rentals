@@ -452,7 +452,7 @@ function displayProperty($pid) {
           // user is searching with pid
           echo "<p>Result of seaching PID which contains ".$_POST['pidInput']." ... </p>";
           $pid = validate($_POST['pidInput']);
-          $sql = "SELECT * FROM property WHERE Property_id LIKE '%{$pid}%' ";
+          $sql = "SELECT * FROM property WHERE Property_id LIKE '%{$pid}%' AND rental_status= 'Yes' ";
           $result = mysqli_query($conn, $sql);
         }
         $num_prop_displayed = 0;
