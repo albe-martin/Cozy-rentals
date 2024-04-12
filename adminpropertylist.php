@@ -207,7 +207,7 @@ function displayProperty($pid) {
       <?php
         // display properties
         include "db_connect.php";
-        $sql = "SELECT * FROM property ";  // properties that are still open for rent
+        $sql = "SELECT * FROM property ";  // every property
 	      $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
           // display every properties
