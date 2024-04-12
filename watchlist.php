@@ -188,7 +188,8 @@ function displayProperty($pid) {
       <?php
         // display properties
         include "db_connect.php";
-        $sql = "SELECT * FROM watchlist WHERE Client_email = '$_SESSION[email]' ";
+        $sql = "SELECT * FROM watchlist WHERE Client_email = '$_SESSION[email]' "; 
+	      $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
           // display every properties
           while($row = $result->fetch_assoc()) {
