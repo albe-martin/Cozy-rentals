@@ -84,13 +84,25 @@ function displayPayment($pid) {
     echo "<p>Amount: $".$row['amount']."</p>";
     echo "<p>Card #: **** **** **** ".substr($row['card_num'], -4)."</p>";
     echo "<p>Rented Property ID: ".$row['property_id']."</p>";
-
-    $sql_owner = "SELECT * FROM `property` WHERE Property_id= '$row[property_id]' ";
-    $result_owner= mysqli_query($conn, $sql_owner);
-    if (mysqli_num_rows($result_owner) > 0) {
-
-    } else if (mysqli_num_rows($result_owner) === 0) {
-
+    echo "<hr/>";
+    // (owner)receiver info
+    $sql_receive = "SELECT * FROM `receive` WHERE payment_id= '$pid' ";
+    $result_receive= mysqli_query($conn, $sql_receive);
+    if (mysqli_num_rows($result_receive) === 1) {
+      $row_receive = mysqli_fetch_assoc($result_receive);
+      $owner_email = $row_receive['Owner_email'];
+      $sql_owner = "SELECT * FROM `owner` WHERE Email = '$owner_email' ";
+      $result_owner = mysqli_query($conn, $sql_owner);
+      if (mysqli_num_rows($result_owner) === 1) {
+        $row_owner = mysqli_fetch_assoc($result_owner);
+        echo "<p>Owner of Property: ".$row_owner['FName']." ".$row_owner['LName']."</p>";
+        echo "<p>Owner Phone Number: ".$row_owner['Phone_no']."</p>";
+        echo "<p>Owner Email: ".$row_owner['Email']."</p>";
+      } else {
+        echo "<p>Error in the database: unknown receiver (check table `owner`)</p>";
+      }
+    } else {
+      echo "<p>Error in the database: unknown receiver (check table `receive`)</p>";
     }
     ?> 
   </div>
