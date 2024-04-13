@@ -139,19 +139,63 @@ function displayProperty($pid) {
     // SUCH AS OWNER'S NAME and EMAIL
     // REANTAL STATus
     // IF IS RENTED, ALSO SHOW THE CLIENTS NAME AND EMAIL
-    // EXAMPLE
+    // posted by 
     $admin_email = validate($row['admin_who_post']);
     $sql_admin_name = "SELECT * FROM `user` WHERE Email = '$admin_email' ";
     $result_admin_name = mysqli_query($conn, $sql_admin_name);
     if ($result_admin_name == FALSE) {
-      //debug
       echo mysqli_error($conn);
-    }
-    if (mysqli_num_rows($result_admin_name) == 1) {
+    } else if (mysqli_num_rows($result_admin_name) == 1) {
       $admin_names = $result_admin_name->fetch_assoc();
       echo "<p>"."Posted by: ".$admin_names['FName']." ".$admin_names['LName']." (".$row['admin_who_post'].")</p>"; 
     } else {
       echo "<p>"."Posted by: Unknown Admin (".$row['admin_who_post'].")</p>"; 
+    }
+    // owner info 
+    $sql_own = "SELECT * FROM `own` WHERE `property_id` = '$pid' ";
+    $result_own = mysqli_query($conn, $sql_own);
+    if ($result_own == FALSE) {
+      echo mysqli_error($conn);
+    } else if (mysqli_num_rows($result_own) == 1) {
+      $row_own = $result_own->fetch_assoc();
+      $owner_email = $row_own['owner_email'];
+      //get owner row
+      $sql_owner = "SELECT * FROM `owner` WHERE `Email` = '$owner_email' ";
+      $result_owner = mysqli_query($conn, $sql_owner);
+      if ($result_owner == FALSE) {
+        echo mysqli_error($conn);
+      } else if (mysqli_num_rows($result_owner) == 1) {
+        $row_owner = $result_owner->fetch_assoc();
+        echo "<p>Owner: ".$row_owner['FName']." ".$row_owner['LName']." (".$owner_email.")</p>";
+        echo "<p>Owner Phone#: ".$row_owner['Phone_no']."</p>";
+      } else {
+        echo "<p>Owner: Identity Unknown (".$owner_email.")</p>";
+      }
+    } else {
+      echo "<p>Owner: Email Unknown</p>"; 
+    }
+    // rental status info
+    echo "<p>Is open for rent: " .$row['rental_status']. "</p>";
+    $sql_rent = "SELECT * FROM `rent` WHERE `Property_id` = '$pid' ";
+    $result_rent = mysqli_query($conn, $sql_rent);
+    if ($result_rent == FALSE) {
+    } else if (mysqli_num_rows($result_rent) == 1) {
+      $row_rent = $result_rent->fetch_assoc();
+      $client_email = $row_rent['client_email'];
+      //get user row
+      $sql_user = "SELECT * FROM `user` WHERE `Email` = '$client_email' ";
+      $result_user = mysqli_query($conn, $sql_user);
+      if ($result_user == FALSE) {
+        echo mysqli_error($conn);
+      } else if (mysqli_num_rows($result_user) == 1) {
+        $row_user = $result_user->fetch_assoc();
+        echo "<p>Rented by: ".$row_user['FName']." ".$row_user['LName']." (".$client_email.")</p>";
+        echo "<p>Renter Phone#: ".$row_user['Phone_no']."</p>";
+      } else {
+        echo "<p>Rented by: Identity Unknown (".$client_email.")</p>";
+      }
+    } else {
+      echo "<p>Rented by: - </p>"; 
     }
     ?> 
 
