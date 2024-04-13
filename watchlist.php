@@ -98,7 +98,7 @@
   cursor: pointer;
   width: 100%;
   font-size: 18px;
-  width: 32.5%;
+  
 }
 
 .btn:hover {
@@ -168,8 +168,6 @@ function displayProperty($pid) {
     <form style="none" action="remove_watchlist.php" method="POST">
       <input type="hidden" name="pid" value="<?php echo $pid; ?>">
       <input type="submit" name="rm_btn" value="Remove From Watchlist" class="btn">
-      <button>Book a Showing</button>
-      <button>Rent Now</button>
     </form>
     </p>
   </div>
