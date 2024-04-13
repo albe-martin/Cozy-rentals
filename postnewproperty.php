@@ -132,6 +132,9 @@ button:hover {
                     <option value="Apartment">Apartment</option>
                     <option value="House">House</option>
                     <option value="Condo">Condo</option>
+                    <option value="Mansion">Mansion</option>
+                    <option value="Basement">Basement</option>
+                    <option value="Duplex">Duplex</option>
                 </select>
             </div>
             <div class="form-group">
