@@ -235,7 +235,7 @@ function displayProperty($pid) {
           // no properties to displaay
           ?>
           <div class="card">
-            <h2>"Nothing is in the watchlisy yet."</h2>
+            <h2>"Nothing is in the watchlist yet."</h2>
           </div>
           <?php
         }
