@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2024 at 01:11 AM
+-- Generation Time: Apr 13, 2024 at 07:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -97,12 +97,12 @@ CREATE TABLE `own` (
 
 INSERT INTO `own` (`owner_email`, `property_id`) VALUES
 ('owner1@gmail.com', 102),
+('owner1@gmail.com', 107),
 ('owner2@gmail.com', 101),
-('owner3@gmail.com', 103),
 ('owner2@gmail.com', 104),
+('owner3@gmail.com', 103),
 ('owner4@gmail.com', 105),
-('owner5@gmail.com', 106),
-('owner1@gmail.com', 107);
+('owner5@gmail.com', 106);
 
 -- --------------------------------------------------------
 
@@ -311,10 +311,10 @@ CREATE TABLE `watchlist` (
 --
 
 INSERT INTO `watchlist` (`Client_email`, `property_id`) VALUES
-('user3@gmail.com', 101),
+('user1@gmail.com', 101),
 ('user1@gmail.com', 102),
 ('user1@gmail.com', 104),
-('user1@gmail.com', 101);
+('user3@gmail.com', 101);
 
 --
 -- Indexes for dumped tables
@@ -327,10 +327,58 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`Admin_email`);
 
 --
+-- Indexes for table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`User_email`);
+
+--
+-- Indexes for table `interior design`
+--
+ALTER TABLE `interior design`
+  ADD PRIMARY KEY (`Property_id`,`interior_design`);
+
+--
+-- Indexes for table `own`
+--
+ALTER TABLE `own`
+  ADD PRIMARY KEY (`owner_email`,`property_id`);
+
+--
+-- Indexes for table `owner`
+--
+ALTER TABLE `owner`
+  ADD PRIMARY KEY (`Email`);
+
+--
+-- Indexes for table `pay`
+--
+ALTER TABLE `pay`
+  ADD PRIMARY KEY (`Clients_email`,`payment_id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`Payment_id`);
+
+--
 -- Indexes for table `property`
 --
 ALTER TABLE `property`
   ADD PRIMARY KEY (`Property_id`);
+
+--
+-- Indexes for table `receive`
+--
+ALTER TABLE `receive`
+  ADD PRIMARY KEY (`Owner_email`,`payment_id`);
+
+--
+-- Indexes for table `rent`
+--
+ALTER TABLE `rent`
+  ADD PRIMARY KEY (`client_email`,`Property_id`);
 
 --
 -- Indexes for table `showlist`
@@ -343,6 +391,12 @@ ALTER TABLE `showlist`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`Email`);
+
+--
+-- Indexes for table `watchlist`
+--
+ALTER TABLE `watchlist`
+  ADD PRIMARY KEY (`Client_email`,`property_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
