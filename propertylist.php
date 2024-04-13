@@ -551,6 +551,9 @@ function displayProperty($pid) {
           <option value="East Asian">East Asian</option>
           <option value="European">European</option>
           <option value="Indian">Indian</option>
+          <option value="American">American</option>
+          <option value="Middle eastern">Middle eastern</option>
+          <option value="Canadian">Canadian</option>
         </select>
         <button type="submit">Apply Filter</button>
       </form>
