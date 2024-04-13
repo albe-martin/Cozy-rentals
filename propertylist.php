@@ -410,11 +410,11 @@ function displayProperty($pid) {
           <p><b>Amount: $<?php echo $row['Cost_Per_Month']; ?></b></p>
           <hr/>
           <label for="cardnum">Card Number: </label>
-          <input type="text" name="cardnum" required pattern="[0-9]{16}" maxlength=16 ng-model="formdata.userCode" title="16 Digit code">
+          <input type="text" name="cardnum" required pattern="[0-9]{16}" maxlength=16 ng-model="formdata.userCode" title="16 Digit code" required>
           <label for="cvc">CVC: </label>
-          <input type="text" name="cvc" required pattern="[0-9]{3}" maxlength=3 ng-model="formdata.userCode" title="3 Digit code">
+          <input type="text" name="cvc" required pattern="[0-9]{3}" maxlength=3 ng-model="formdata.userCode" title="3 Digit code" required>
           <label for="expdate">EXP: </label>
-          <input type="text" name="expdate" required pattern="[0-9]{4}" maxlength=4 ng-model="formdata.userCode" title="4 Digit code">
+          <input type="text" name="expdate" required pattern="[0-9]{4}" maxlength=4 ng-model="formdata.userCode" title="4 Digit code" required>
           <button type="submit" class="btn" name="btn">Complete Payment</button>
           <button type="button" class="btn cancel" onclick="closePaymentForm(<?php echo $pid; ?>)">Close</button>
         </form>
