@@ -44,6 +44,12 @@ if (isset($_POST['delete'])) {
             mysqli_stmt_execute($stmt_showlist);
             mysqli_stmt_close($stmt_showlist);
 
+            //SQL to delete a record from Rent table
+            $sql_rent = "DELETE FROM Rent WHERE Property_id = ?";
+            $stmt_rent = mysqli_prepare($conn, $sql_rent);
+            mysqli_stmt_bind_param($stmt_rent, 'i', $delete_id);
+            mysqli_stmt_execute($stmt_rent);
+            mysqli_stmt_close($stmt_rent);
 
             // Commit transaction
             mysqli_commit($conn);
