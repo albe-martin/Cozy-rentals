@@ -382,7 +382,7 @@ function displayProperty($pid) {
         }
         ?>
 
-        <!-- pop-up forms -->
+        <!-- pop-up form (Booking) -->
         <div class="showing-form-popup" id="showingForm<?php echo $pid; ?>">
         <form action="bookshowing.php" class="form-container" method="POST">
           <input type="hidden" name="pid" value="<?php echo $pid; ?>">
@@ -393,12 +393,30 @@ function displayProperty($pid) {
             <option value="In-person">In-person</option>
             <option value="Virtual">Virtual (ZOOM)</option>
           </select>
-
           <label for="showtime">Showing Time (date and time):</label>
           <input type="datetime-local" id="showtime" name="showtime" required>
-
           <button type="submit" class="btn" name="btn">Book</button>
           <button type="button" class="btn cancel" onclick="closeShowingForm(<?php echo $pid; ?>)">Close</button>
+        </form>
+        </div>
+        <!-- pop-up form (Payment) -->
+        <div class="payment-form-popup" id="paymentForm<?php echo $pid; ?>">
+        <form action="payment.php" class="form-container" method="POST">
+          <input type="hidden" name="pid" value="<?php echo $pid; ?>">
+          <input type="hidden" name="amount" value="<?php echo $row['Cost_Per_Month']; ?>">
+          <h1>Pay to Rent Now</h1>
+          <h2>(for PID: <?php echo $pid; ?>)</h2>
+          <h3>*Secure payment gateway*</h3>
+          <p><b>Amount: $<?php echo $row['Cost_Per_Month']; ?></b></p>
+          <hr/>
+          <label for="cardnum">Card Number: </label>
+          <input type="text" name="cardnum" required pattern="[0-9]{16}" maxlength=16 ng-model="formdata.userCode" title="16 Digit code">
+          <label for="cvc">CVC: </label>
+          <input type="text" name="cvc" required pattern="[0-9]{3}" maxlength=3 ng-model="formdata.userCode" title="3 Digit code">
+          <label for="expdate">EXP: </label>
+          <input type="text" name="expdate" required pattern="[0-9]{4}" maxlength=4 ng-model="formdata.userCode" title="4 Digit code">
+          <button type="submit" class="btn" name="btn">Complete Payment</button>
+          <button type="button" class="btn cancel" onclick="closePaymentForm(<?php echo $pid; ?>)">Close</button>
         </form>
         </div>
         <?php
