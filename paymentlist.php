@@ -155,7 +155,7 @@ function displayPayment($pid) {
         $sql = "SELECT * FROM pay WHERE Clients_email = '$_SESSION[email]' "; 
 	      $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
-          // display every properties
+          // display every payment
           while($row = $result->fetch_assoc()) {
             displayPayment($row['payment_id']);
           }
