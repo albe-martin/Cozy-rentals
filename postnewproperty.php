@@ -76,7 +76,7 @@
 }
 
 button {
-    background-color: #333; /* Green */
+    background-color: #4CAF50; /* Green */
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -86,8 +86,7 @@ button {
 }
 
 button:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #45a049;
 }
 </style>
 <head>
@@ -133,9 +132,6 @@ button:hover {
                     <option value="Apartment">Apartment</option>
                     <option value="House">House</option>
                     <option value="Condo">Condo</option>
-                    <option value="Mansion">Mansion</option>
-                    <option value="Basement">Basement</option>
-                    <option value="Duplex">Duplex</option>
                 </select>
             </div>
             <div class="form-group">
@@ -181,13 +177,22 @@ button:hover {
                 </select>
             </div>
             <div class="form-group">
-                <label for="interiordesign">Interior Design:</label>
+                <label for="furnishing">Furnishing:</label>
+                <select id="furnishing" name="furnishing">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="interiordesign">Interior Design (Select multiple):</label>
                 <select multiple id="interiordesign" name="interiordesign[]">
                     <option value="EAST ASIAN">East Asian</option>
                     <option value="EUROPEAN">European</option>
                     <option value="INDIAN">Indian</option>
                 </select>
+                <small>Use CTRL to select multiple options</small>
             </div>
+
             <div class="form-group">
                 <label for="propertyimage">Property Image:</label>
                 <input type="file" id="propertyimage" name="propertyimage" accept="image/*">
