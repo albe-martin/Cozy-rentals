@@ -189,9 +189,9 @@ button:hover {
             <div class="form-group">
                 <label for="interiordesign">Interior Design (Select multiple):</label>
                 <select multiple id="interiordesign" name="interiordesign[]">
-                    <option value="EAST ASIAN">East Asian</option>
-                    <option value="EUROPEAN">European</option>
-                    <option value="INDIAN">Indian</option>
+                    <option value="East Asian">East Asian</option>
+                    <option value="European">European</option>
+                    <option value="Indian">Indian</option>
                 </select>
                 <small>Use CTRL to select multiple options</small>
             </div>
