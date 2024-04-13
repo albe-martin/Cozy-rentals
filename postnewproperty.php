@@ -76,7 +76,7 @@
 }
 
 button {
-    background-color: #4CAF50; /* Green */
+    background-color: #333; /* Green */
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -86,7 +86,8 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #ddd;
+    color: black;
 }
 </style>
 <head>
@@ -132,6 +133,9 @@ button:hover {
                     <option value="Apartment">Apartment</option>
                     <option value="House">House</option>
                     <option value="Condo">Condo</option>
+                    <option value="Mansion">Mansion</option>
+                    <option value="Basement">Basement</option>
+                    <option value="Duplex">Duplex</option>
                 </select>
             </div>
             <div class="form-group">
