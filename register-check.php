@@ -16,7 +16,7 @@ if (isset($_POST['submit-btn'])) {
         header("Invalid email format");
 	    exit();
     }
-	$phone = validate($_POST['phone']);
+	$phone = $_POST['phone'];
 	$fname = validate($_POST['fname']);
 	$lname = validate($_POST['lname']);
 	$pass = validate($_POST['password']);
@@ -28,15 +28,15 @@ if (isset($_POST['submit-btn'])) {
         header("Location: register.php?error=The email is taken please try another");
         exit();
     } else {
-		$sql2 = "INSERT INTO user(Email, Phone_no, Password, FName, LName) VALUES('$email', '$phone', '$pass', '$fname', '$lname')";
+		$sql2 = "INSERT INTO `user`(`Email`, `Phone_no`, `Password`, `FName`, `LName`) VALUES('$email', '$phone', '$pass', '$fname', '$lname')";
 		$result2 = mysqli_query($conn, $sql2);
-		$sql3 = "INSERT INTO client(User_email) VALUES('$email')";
+		$sql3 = "INSERT INTO `client`(`User_email`) VALUES('$email')";
 		$result3 = mysqli_query($conn, $sql3);
 		if ($result2 && $result3) {
 			header("Location: register.php?success=Your account has been created successfully");
 		  	exit();
 		}else {
-			header("Location: register.php?error=Unknown error occurred&$user_data");
+			header("Location: register.php?error=Unknown error occurred");
 			exit();
 		}
     }

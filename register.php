@@ -73,7 +73,7 @@
     border-radius: 5px;
 }
 
-.register-form input[type=email], .register-form input[type=phone], .register-form input[type=password], .register-form input[type=fname], .register-form input[type=lname] {
+.register-form input[type=email], .register-form input[type=phone], .register-form input[type=password], .register-form input[type=text] {
     width: 100%;
     padding: 10px;
     margin: 10px -10px;
@@ -124,11 +124,11 @@
             <label for="email">Email:</label>
             <input type="email" name="email" required>
             <label for="phone">Phone Number:</label>
-            <input type="phone" name="phone" required> 
+            <input type="text" required pattern="[0-9]{10}" maxlength=10 name="phone" required> 
             <label for="fname">First Name:</label>
-            <input type="fname" name="fname" required>
+            <input type="text" name="fname" required>
             <label for="lname">Last Name:</label>
-            <input type="lname" name="lanme" required> 
+            <input type="text" name="lname" required> 
             <label for="password">Password:</label>
             <input type="password" name="password" required>
             <input type="submit" name="submit-btn" value="Register Now" class="btn">
