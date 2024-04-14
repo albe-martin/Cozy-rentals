@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2024 at 07:26 AM
+-- Generation Time: Apr 14, 2024 at 02:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -78,7 +78,10 @@ CREATE TABLE `interior design` (
 INSERT INTO `interior design` (`Property_id`, `interior_design`) VALUES
 (101, 'East Asian'),
 (102, 'European'),
-(103, 'Indian');
+(103, 'Indian'),
+(104, 'Middle eastern'),
+(105, 'Canadian'),
+(106, 'American');
 
 -- --------------------------------------------------------
 
@@ -144,6 +147,7 @@ CREATE TABLE `pay` (
 --
 
 INSERT INTO `pay` (`Clients_email`, `payment_id`) VALUES
+('user1@gmail.com', 503),
 ('user2@gmail.com', 502);
 
 -- --------------------------------------------------------
@@ -166,7 +170,8 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`Payment_id`, `amount`, `card_num`, `exp_date`, `cvc`, `property_id`) VALUES
-(502, 900, 5463718277438902, 911, 202, 102);
+(502, 900, 5463718277438902, 911, 202, 102),
+(503, 4500, 1111111111111111, 1111, 111, 104);
 
 -- --------------------------------------------------------
 
@@ -202,7 +207,7 @@ INSERT INTO `property` (`Property_id`, `Size`, `Property_type`, `Pet`, `Smoke`, 
 (101, 2010, 'Apartment', 'Yes', 'No', 1700, 'No', 'No', 'NW', 7821, '1st street Homwlander', 'T2K 5Y1', 'AB', 3, 1, 'yes', 'admin2@gmail.com'),
 (102, 1032, 'Condo', 'Yes', 'Yes', 900, 'No', 'No', 'SW', 1919, '31st Homeland Street', 'T2N 1Y2', 'AB', 1, 1, 'Yes', 'admin3@gmail.com'),
 (103, 2500, 'House', 'No', 'Yes', 2499, 'Yes', 'Yes', 'NE', 2515, '3 avenue Debee Street', 'T2N 1Q1', 'AB', 3, 3, 'No', 'admin1@gmail.com'),
-(104, 6600, 'Mansion', 'Yes', 'No', 4500, 'Yes', 'No', 'SW', 11, '1st Street Mansionvilla', 'T1D E1O', 'AB', 6, 6, 'Yes', 'admin1@gmail.com'),
+(104, 6600, 'Mansion', 'Yes', 'No', 4500, 'Yes', 'No', 'SW', 11, '1st Street Mansionvilla', 'T1D E1O', 'AB', 6, 6, 'No', 'admin1@gmail.com'),
 (105, 900, 'Basement', 'No', 'Yes', 890, 'No', 'No', 'SE', 1715, '17 Street 15 Avenue Entehome', 'T5D L8R', 'AB', 1, 1, 'Yes', 'admin3@gmail.com'),
 (106, 2550, 'Duplex', 'No', 'Yes', 1400, 'No', 'Yes', 'NE', 2322, '9th Street 23 Avenue Johnpark', 'T5B 4J9', 'AB', 2, 1, 'Yes', 'admin3@gmail.com'),
 (107, 3200, 'Apartment', 'Yes', 'Yes', 2100, 'No', 'Yes', 'NE', 555, '7th Street Teripath', 'T5E 7W8', 'AB', 2, 2, 'Yes', 'admin2@gmail.com');
@@ -223,7 +228,8 @@ CREATE TABLE `receive` (
 --
 
 INSERT INTO `receive` (`Owner_email`, `payment_id`) VALUES
-('owner1@gmail.com', 502);
+('owner1@gmail.com', 502),
+('owner2@gmail.com', 503);
 
 -- --------------------------------------------------------
 
@@ -267,7 +273,8 @@ CREATE TABLE `showlist` (
 INSERT INTO `showlist` (`Client_email`, `Booking_id`, `type`, `year`, `month`, `day`, `time`, `property_id`) VALUES
 ('user2@gmail.com', 901, 'In-person', 2024, 9, 25, '12:30:00', 101),
 ('user1@gmail.com', 902, 'Virtual', 2024, 5, 15, '05:00:00', 103),
-('user2@gmail.com', 903, 'In-Person', 2024, 10, 12, '13:41:29', 102);
+('user2@gmail.com', 903, 'In-Person', 2024, 10, 12, '13:41:29', 102),
+('user1@gmail.com', 904, 'In-person', 2024, 4, 20, '20:15:00', 101);
 
 -- --------------------------------------------------------
 
@@ -277,7 +284,7 @@ INSERT INTO `showlist` (`Client_email`, `Booking_id`, `type`, `year`, `month`, `
 
 CREATE TABLE `user` (
   `Email` varchar(100) NOT NULL,
-  `Phone_no` int(11) NOT NULL,
+  `Phone_no` varchar(11) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `FName` varchar(15) NOT NULL,
   `LName` varchar(15) NOT NULL
@@ -288,12 +295,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Email`, `Phone_no`, `Password`, `FName`, `LName`) VALUES
-('admin1@gmail.com', 381546378, 'admin1@pss', 'Thomas ', 'Terry'),
-('admin2@gmail.com', 403746365, 'admin2@gmail.com', 'Toni', 'Kross'),
-('admin3@gmail.com', 435123478, 'admin@123', 'Lional', 'Messi'),
-('user1@gmail.com', 403918123, 'user1@pss', 'Will', 'Smith'),
-('user2@gmail.com', 888900471, 'user2@pss', 'Christian', 'Bale'),
-('user3@gmail.com', 501378947, 'user3@qw', 'John', 'smith');
+('admin1@gmail.com', '381546378', 'admin1@pss', 'Thomas ', 'Terry'),
+('admin2@gmail.com', '403746365', 'admin2@gmail.com', 'Toni', 'Kross'),
+('admin3@gmail.com', '435123478', 'admin@123', 'Lional', 'Messi'),
+('user1@gmail.com', '403918123', 'user1@pss', 'Will', 'Smith'),
+('user2@gmail.com', '888900471', 'user2@pss', 'Christian', 'Bale'),
+('user3@gmail.com', '501378947', 'user3@qw', 'John', 'smith');
 
 -- --------------------------------------------------------
 
@@ -313,7 +320,6 @@ CREATE TABLE `watchlist` (
 INSERT INTO `watchlist` (`Client_email`, `property_id`) VALUES
 ('user1@gmail.com', 101),
 ('user1@gmail.com', 102),
-('user1@gmail.com', 104),
 ('user3@gmail.com', 101);
 
 --
