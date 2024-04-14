@@ -40,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['type']) && $_SESSIO
     }
 
     // Insert property details into Property table
-    $stmt_property = $conn->prepare("INSERT INTO Property (Property_id, Size, Property_type, Pet, Smoke, Cost_Per_Month, Utility, Furnish, District, `No.`, Street, PostalCode, Province, num_bedrooms, num_bathrooms, rental_status, admin_who_post) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Yes', ?)");
-    $stmt_property->bind_param("iissssssissssiis", $propertyid, $size, $propertytype, $pets, $smoke, $cost, $utilityfees, $furnish, $district, $no, $street, $postalcode, $province, $numbedrooms, $numbathrooms, $adminwhopost);
+    $stmt_property = $conn->prepare("INSERT INTO Property (Property_id, `Size`, Property_type, Pet, Smoke, Cost_Per_Month, Utility, Furnish, `District`, `No.`, Street, PostalCode, Province, num_bedrooms, num_bathrooms, rental_status, admin_who_post) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Yes', ?)");
+    $stmt_property->bind_param("iisssisssisssiis", $propertyid, $size, $propertytype, $pets, $smoke, $cost, $utilityfees, $furnish, $district, $no, $street, $postalcode, $province, $numbedrooms, $numbathrooms, $adminwhopost);
     $stmt_property->execute() or die("Error: " . $stmt_property->error);
     $stmt_property->close();
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2024 at 02:07 AM
+-- Generation Time: Apr 14, 2024 at 02:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -115,7 +115,7 @@ INSERT INTO `own` (`owner_email`, `property_id`) VALUES
 
 CREATE TABLE `owner` (
   `Email` varchar(50) NOT NULL,
-  `Phone_no` int(11) NOT NULL,
+  `Phone_no` varchar(11) NOT NULL,
   `FName` varchar(15) NOT NULL,
   `LName` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -125,11 +125,11 @@ CREATE TABLE `owner` (
 --
 
 INSERT INTO `owner` (`Email`, `Phone_no`, `FName`, `LName`) VALUES
-('owner1@gmail.com', 403712345, 'Martin', 'Junior'),
-('owner2@gmail.com', 413256999, 'Ricardo', 'Kaka'),
-('owner3@gmail.com', 523789654, 'Jeanette', 'Henry'),
-('owner4@gmail.com', 403546145, 'Tery', 'Jackson'),
-('owner5@gmail.com', 513897654, 'Neymar', 'Jr');
+('owner1@gmail.com', '403712345', 'Martin', 'Junior'),
+('owner2@gmail.com', '413256999', 'Ricardo', 'Kaka'),
+('owner3@gmail.com', '523789654', 'Jeanette', 'Henry'),
+('owner4@gmail.com', '403546145', 'Tery', 'Jackson'),
+('owner5@gmail.com', '513897654', 'Neymar', 'Jr');
 
 -- --------------------------------------------------------
 

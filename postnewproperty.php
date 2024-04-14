@@ -156,7 +156,7 @@ button:hover {
                     <option value="NE">NE</option>
                     <option value="SW">SW</option>
                     <option value="SE">SE</option>
-                    <option value="CITY CENTER">City Center</option>
+                    <option value="CC">City Center</option>
                 </select>
                 <input type="text" id="no" name="no" placeholder="House No" required>
                 <input type="text" id="street" name="street" placeholder="Street" required>
