@@ -84,6 +84,15 @@ function displayPayment($pid) {
     echo "<p>Amount: $".$row['amount']."</p>";
     echo "<p>Card #: **** **** **** ".substr($row['card_num'], -4)."</p>";
     echo "<p>Rented Property ID: ".$row['property_id']."</p>";
+    $sql_property = "SELECT * FROM `property` WHERE `Property_id` = '$row[property_id]' ";
+    $result_property = mysqli_query($conn, $sql_property);
+    if (!$result_property || mysqli_num_rows($result_property) === 0) {
+      echo "<p>Rented Property Address: (has asked to be removed from database)</p>";
+    } else {
+      $row_property = mysqli_fetch_assoc($result_property);
+      $address = $row_property['No.']." ".$row_property['Street']." ".$row_property['District']." ".$row_property['Province'];
+      echo "<p>Rented Property Address: ".$address."</p>";
+    }
     echo "<hr/>";
     // (owner)receiver info
     $sql_receive = "SELECT * FROM `receive` WHERE payment_id= '$pid' ";
